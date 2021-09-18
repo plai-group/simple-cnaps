@@ -12,7 +12,6 @@ import tensorflow as tf
 tf.compat.v1.logging.set_verbosity(tf.compat.v1.logging.ERROR)  # Quiet the TensorFlow warnings
 import pickle
 
-
 class ExtraDatasetConverter(DatasetConverter):
     def create_splits(self):
         class_names = sorted(os.listdir(self.data_root))
@@ -160,10 +159,8 @@ def main():
         random_seed=22
     )
     converter.convert_dataset()
-
+    
     print('Finished.')
-
 
 if __name__ == '__main__':
     main()
-

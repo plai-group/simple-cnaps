@@ -2,14 +2,12 @@ import torch
 import torch.nn as nn
 
 """
-    Classes and functions required for Set encoding in adaptation networks. Many of the ideas and classes here are 
+    Classes and functions required for Set encoding in adaptation networks. Many of the ideas and classes here are
     closely related to DeepSets (https://arxiv.org/abs/1703.06114).
 """
 
-
 def mean_pooling(x):
     return torch.mean(x, dim=0, keepdim=True)
-
 
 class SetEncoder(nn.Module):
     """
@@ -38,14 +36,12 @@ class SetEncoder(nn.Module):
         x = self.post_pooling_fn(x)
         return x
 
-
 class Identity(nn.Module):
     def __init__(self):
         super(Identity, self).__init__()
 
     def forward(self, x):
         return x
-
 
 class SimplePrePoolNet(nn.Module):
     """

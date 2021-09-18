@@ -2,14 +2,41 @@ import torch
 import torch.nn as nn
 
 """
-    Classes and functions required for Set encoding in adaptation networks. Many of the ideas and classes here are 
+    Classes and functions required for Set encoding in adaptation networks. Many of the ideas and classes here are
     closely related to DeepSets (https://arxiv.org/abs/1703.06114).
 """
-
 
 def mean_pooling(x):
     return torch.mean(x, dim=0, keepdim=True)
 
+class TransductiveSetEncoder(nn.Module):
+    """
+    Transductive set encoder, implementing a two step conditional LSTM on top of the DeepSets approach.
+    """
+    def __init__(self, lstm_num=2):
+        super(TransductiveSetEncoder, self).__init__()
+        self.pre_pooling_fn = SimplePrePoolNet()
+        self.pooling_fn = mean_pooling
+        self.sequential_encoder = nn.LSTM(input_size=self.pre_pooling_fn.output_size, hidden_size=self.pre_pooling_fn.output_size, num_layers=lstm_num)
+        self.hidden_0 = torch.zeros((lstm_num,1,self.pre_pooling_fn.output_size)).cuda()
+
+    def forward(self, context_images, context_labels, query_images):
+        """
+        Forward pass through DeepSet SetEncoder followed by sequential encoding.
+        """
+        context_vectors = self.pre_pooling_fn(context_images)
+        query_vectors = self.pre_pooling_fn(query_images)
+
+        N = context_labels.sum(dim=0)
+        context_class_means = torch.einsum('if,ic->cf', context_vectors, context_labels) / N[:, None]
+        context_mean = self.pooling_fn(context_class_means)
+
+        query_mean = self.pooling_fn(query_vectors)
+
+        out_1, hidden_1 = self.sequential_encoder(context_mean.unsqueeze(0), (self.hidden_0, self.hidden_0))
+        out_2, hidden_2 = self.sequential_encoder(query_mean.unsqueeze(0), hidden_1)
+
+        return out_2
 
 class SetEncoder(nn.Module):
     """
@@ -38,14 +65,12 @@ class SetEncoder(nn.Module):
         x = self.post_pooling_fn(x)
         return x
 
-
 class Identity(nn.Module):
     def __init__(self):
         super(Identity, self).__init__()
 
     def forward(self, x):
         return x
-
 
 class SimplePrePoolNet(nn.Module):
     """

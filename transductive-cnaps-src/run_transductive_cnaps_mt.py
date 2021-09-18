@@ -17,11 +17,9 @@ NUM_VALIDATION_TASKS = 200
 NUM_TEST_TASKS = 600
 VALIDATION_FREQUENCY = 1000
 
-
 def main():
     learner = Learner()
     learner.run()
-
 
 class Learner:
     def __init__(self):
@@ -85,6 +83,13 @@ class Learner:
                             help="Number of test examples per class in the task.")
         parser.add_argument("--dataset", choices=["mini", "tiered"], default="mini",
                             help="Imagenet subset dataset to be used.")
+
+        # Transductive CNAPS specific parameters
+        parser.add_argument("--min_cluster_refinement_steps_train", type=int, default=0, help="Minimum number of cluster refinement steps to take whilst training.")
+        parser.add_argument("--max_cluster_refinement_steps_train", type=int, default=0, help="Maximum number of cluster refinement steps to take whilst training.")
+        parser.add_argument("--min_cluster_refinement_steps", type=int, default=2, help="Minimum number of cluster refinement steps to take.")
+        parser.add_argument("--max_cluster_refinement_steps", type=int, default=4, help="Maximum number of cluster refinement steps to take.")
+
         args = parser.parse_args()
 
         return args
@@ -95,6 +100,7 @@ class Learner:
         validation_accuracy = 0
         with tf.compat.v1.Session(config=config) as session:
             if self.args.mode == 'train' or self.args.mode == 'train_test':
+                self.model.set_to_train_mode()
                 train_accuracies = []
                 losses = []
                 total_iterations = NUM_TRAIN_TASKS
@@ -130,10 +136,31 @@ class Learner:
                 torch.save(self.model.state_dict(), self.checkpoint_path_final)
 
             if self.args.mode == 'train_test':
+                print("Evaluating with train mode max/min refinement steps.")
+                print("Max refinement steps (train): " + str(self.args.max_cluster_refinement_steps_train))
+                print("Min refinement steps (train): " + str(self.args.min_cluster_refinement_steps_train))
+                self.model.set_to_train_mode()
+                self.test(self.checkpoint_path_final, session)
+                self.test(self.checkpoint_path_validation, session)
+
+                print("Evaluating with test mode max/min refinement steps.")
+                print("Max refinement steps (test): " + str(self.args.max_cluster_refinement_step_test))
+                print("Min refinement steps (test): " + str(self.args.min_cluster_refinement_steps_test))
+                self.model.set_to_test_mode()
                 self.test(self.checkpoint_path_final, session)
                 self.test(self.checkpoint_path_validation, session)
 
             if self.args.mode == 'test':
+                print("Evaluating with train mode max/min refinement steps.")
+                print("Max refinement steps (train): " + str(self.args.max_cluster_refinement_steps_train))
+                print("Min refinement steps (train): " + str(self.args.min_cluster_refinement_steps_train))
+                self.model.set_to_train_mode()
+                self.test(self.args.test_model_path, session)
+
+                print("Evaluating with test mode max/min refinement steps.")
+                print("Max refinement steps (test): " + str(self.args.max_cluster_refinement_step_test))
+                print("Min refinement steps (test): " + str(self.args.min_cluster_refinement_steps_test))
+                self.model.set_to_test_mode()
                 self.test(self.args.test_model_path, session)
 
             self.logfile.close()

@@ -4,10 +4,9 @@ from adaptation_networks import NullFeatureAdaptationNetwork, FilmAdaptationNetw
 from set_encoder import SetEncoder
 from utils import linear_classifier
 
-
-""" Creates the set encoder, feature extractor, feature adaptation, classifier, and classifier adaptation networks.
 """
-
+Creates the set encoder, feature extractor and feature adaptation networks.
+"""
 
 class ConfigureNetworks:
     def __init__(self, pretrained_resnet_path, feature_adaptation):
@@ -58,16 +57,11 @@ class ConfigureNetworks:
         for param in self.feature_extractor.parameters():
             param.requires_grad = False
 
-        self.classifier_adaptation_network = LinearClassifierAdaptationNetwork(self.feature_extractor.output_size)
-
     def get_encoder(self):
         return self.encoder
 
     def get_classifier(self):
         return self.classifier
-
-    def get_classifier_adaptation(self):
-        return self.classifier_adaptation_network
 
     def get_feature_adaptation(self):
         return self.feature_adaptation_network

@@ -32,20 +32,21 @@ class SimpleCnaps(nn.Module):
         self.set_encoder = networks.get_encoder()
 
         """
-        SCM: since Simple CNAPS relies on the Mahalanobis distance, it doesn't require
-        the classification adaptation function and the classifier itself. The removal of the former
-        results in a 788,485 reduction in the number of parameters in the model.
+        Since Simple CNAPS relies on the Mahalanobis distance, it doesn't require
+        the classification adaptation function and the classifier itself in CNAPS.
+        The removal of the former results in a 788,485 reduction in the number of parameters
+        in the model.
         """
         #self.classifier_adaptation_network = networks.get_classifier_adaptation()
         #self.classifier = networks.get_classifier()
-        
+
         self.feature_extractor = networks.get_feature_extractor()
         self.feature_adaptation_network = networks.get_feature_adaptation()
         self.task_representation = None
         self.class_representations = OrderedDict()  # Dictionary mapping class label (integer) to encoded representation
-        
+
         """
-        SCM: in addition to saving class representations, Simple CNAPS uses a separate
+        In addition to saving class representations, Simple CNAPS uses a separate
         ordered dictionary for saving the class percision matrices for use when infering on
         query examples.
         """
@@ -65,7 +66,7 @@ class SimpleCnaps(nn.Module):
         context_features, target_features = self._get_features(context_images, target_images)
 
         """
-        SCM: we build both class representations and the regularized covariance estimates.
+        We build both class representations and the regularized covariance estimates.
         """
         # get the class means and covariance estimates in tensor form
         self._build_class_reps_and_covariance_estimates(context_features, context_labels)
@@ -77,7 +78,7 @@ class SimpleCnaps(nn.Module):
         number_of_targets = target_features.size(0)
 
         """
-        SCM: calculating the Mahalanobis distance between query examples and the class means
+        Calculating the Mahalanobis distance between query examples and the class means
         including the class precision estimates in the calculations, reshaping the distances
         and multiplying by -1 to produce the sample logits
         """
@@ -140,7 +141,7 @@ class SimpleCnaps(nn.Module):
         """
 
         """
-        SCM: calculating a task level covariance estimate using the provided function.
+        Calculating a task level covariance estimate using the provided function.
         """
         task_covariance_estimate = self.estimate_cov(context_features)
         for c in torch.unique(context_labels):
@@ -159,10 +160,10 @@ class SimpleCnaps(nn.Module):
             lambda_k_tau = (class_features.size(0) / (class_features.size(0) + 1))
             self.class_precision_matrices[c.item()] = torch.inverse((lambda_k_tau * self.estimate_cov(class_features)) + ((1 - lambda_k_tau) * task_covariance_estimate) \
                     + torch.eye(class_features.size(1), class_features.size(1)).cuda(0))
-    
+
     def estimate_cov(self, examples, rowvar=False, inplace=False):
         """
-        SCM: unction based on the suggested implementation of Modar Tensai
+        Function based on the suggested implementation of Modar Tensai
         and his answer as noted in: https://discuss.pytorch.org/t/covariance-and-gradient-support/16217/5
 
         Estimate a covariance matrix given data.
@@ -207,4 +208,3 @@ class SimpleCnaps(nn.Module):
     def distribute_model(self):
         self.feature_extractor.cuda(1)
         self.feature_adaptation_network.cuda(1)
-

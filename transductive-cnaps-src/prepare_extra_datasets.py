@@ -12,7 +12,6 @@ import tensorflow as tf
 tf.compat.v1.logging.set_verbosity(tf.compat.v1.logging.ERROR)  # Quiet the TensorFlow warnings
 import pickle
 
-
 class ExtraDatasetConverter(DatasetConverter):
     def create_splits(self):
         class_names = sorted(os.listdir(self.data_root))
@@ -30,7 +29,6 @@ class ExtraDatasetConverter(DatasetConverter):
             class_records_path = os.path.join(self.records_path, self.dataset_spec.file_pattern.format(class_id))
             self.class_names[class_id] = class_name
             self.images_per_class[class_id] = write_tfrecord_from_directory(class_directory, class_id, class_records_path)
-
 
 def process_cifar(src_path, dst_path, imagesFileName, labelsFileName, labelKey1, labelKey2):
     def unpickle(file):
@@ -63,7 +61,6 @@ def process_cifar(src_path, dst_path, imagesFileName, labelsFileName, labelKey1,
         os.makedirs(dst_path)
 
     save_images_in_data_batch(src_path, imagesFileName, dst_path, labelKey1, labelKey2)
-
 
 def process_mnist(datasrc_path):
     def get_images(path):
@@ -104,7 +101,6 @@ def process_mnist(datasrc_path):
     test_images = get_images(os.path.join(datasrc_path, 't10k-images-idx3-ubyte.gz'))
     test_labels = get_labels(os.path.join(datasrc_path, 't10k-labels-idx1-ubyte.gz'))
     create_image_dir(test_images, test_labels, os.path.join(datasrc_path, 'mnist'))
-
 
 def main():
     datasrc_path = os.path.abspath(os.environ['DATASRC'])
@@ -163,7 +159,5 @@ def main():
 
     print('Finished.')
 
-
 if __name__ == '__main__':
     main()
-

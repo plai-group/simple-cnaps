@@ -1,7 +1,6 @@
 import torch
 import torch.nn as nn
 
-
 class DenseResidualLayer(nn.Module):
     """
     PyTorch like layer for standard linear layer with identity residual connection.
@@ -25,7 +24,6 @@ class DenseResidualLayer(nn.Module):
         out = self.linear(x)
         out += identity
         return out
-
 
 class DenseResidualBlock(nn.Module):
     """
@@ -62,7 +60,6 @@ class DenseResidualBlock(nn.Module):
         if x.shape[-1] == out.shape[-1]:
             out += identity
         return out
-
 
 class FilmAdaptationNetwork(nn.Module):
     """
@@ -115,7 +112,6 @@ class FilmAdaptationNetwork(nn.Module):
         for layer in self.layers:
             l2_term += layer.regularization_term()
         return l2_term
-
 
 class FilmLayerNetwork(nn.Module):
     """
@@ -211,7 +207,6 @@ class FilmLayerNetwork(nn.Module):
             l2_term += (beta_regularizer ** 2).sum()
         return l2_term
 
-
 class NullFeatureAdaptationNetwork(nn.Module):
     """
     Dummy adaptation network for the case of "no_adaptation".
@@ -225,7 +220,6 @@ class NullFeatureAdaptationNetwork(nn.Module):
     @staticmethod
     def regularization_term():
         return 0
-
 
 class LinearClassifierAdaptationNetwork(nn.Module):
     """
@@ -277,7 +271,6 @@ class LinearClassifierAdaptationNetwork(nn.Module):
         classifier_param_dict['bias_mean'] = torch.reshape(torch.cat(class_bias_means, dim=1), [num_classes, ])
 
         return classifier_param_dict
-
 
 class FilmArAdaptationNetwork(nn.Module):
     """
@@ -346,7 +339,6 @@ class FilmArAdaptationNetwork(nn.Module):
         for layer in self.layers:
             l2_term += layer.regularization_term()
         return l2_term
-
 
 class FilmArLayerNetwork(nn.Module):
     """

@@ -35,24 +35,19 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 """
 
-
 import torch.nn as nn
 import torch
 
-
 __all__ = ['ResNet', 'resnet18']
-
 
 def conv3x3(in_planes, out_planes, stride=1):
     """3x3 convolution with padding"""
     return nn.Conv2d(in_planes, out_planes, kernel_size=3, stride=stride,
                      padding=1, bias=False)
 
-
 def conv1x1(in_planes, out_planes, stride=1):
     """1x1 convolution"""
     return nn.Conv2d(in_planes, out_planes, kernel_size=1, stride=stride, bias=False)
-
 
 class BasicBlock(nn.Module):
     expansion = 1
@@ -84,7 +79,6 @@ class BasicBlock(nn.Module):
         out = self.relu(out)
 
         return out
-
 
 class BasicBlockFilm(nn.Module):
     """
@@ -140,7 +134,6 @@ class BasicBlockFilm(nn.Module):
         gamma = gamma[None, :, None, None]
         beta = beta[None, :, None, None]
         return gamma * x + beta
-
 
 class ResNet(nn.Module):
 
@@ -219,7 +212,6 @@ class ResNet(nn.Module):
     def output_size(self):
         return 512
 
-
 class FilmResNet(ResNet):
     """
     Wrapper object around BasicBlockFilm that constructs a complete ResNet with FiLM layer adaptation. Inherits from
@@ -263,7 +255,6 @@ class FilmResNet(ResNet):
 
         return x
 
-
 def resnet18(pretrained=False, pretrained_model_path=None, **kwargs):
     """
         Constructs a ResNet-18 model.
@@ -274,12 +265,10 @@ def resnet18(pretrained=False, pretrained_model_path=None, **kwargs):
         model.load_state_dict(ckpt_dict['state_dict'])
     return model
 
-
 def film_resnet18(pretrained=False, pretrained_model_path=None, **kwargs):
     """
         Constructs a FiLM adapted ResNet-18 model.
     """
-
     model = FilmResNet(BasicBlockFilm, [2, 2, 2, 2], **kwargs)
     if pretrained:
         ckpt_dict = torch.load(pretrained_model_path)

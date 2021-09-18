@@ -4,7 +4,6 @@ import os
 from datetime import datetime
 import math
 
-
 class ValidationAccuracies:
     """
     Determines if an evaluation on the validation set is better than the best so far.
@@ -43,14 +42,12 @@ class ValidationAccuracies:
                                                                     accuracy_dict[dataset]["confidence"]))
         print_and_log(logfile, "")  # add a blank line
 
-
 def print_and_log(log_file, message):
     """
     Helper function to print to the screen and the log file.
     """
     print(message)
     log_file.write(message + '\n')
-
 
 def get_log_files(checkpoint_dir):
     """
@@ -67,7 +64,6 @@ def get_log_files(checkpoint_dir):
 
     return unique_checkpoint_dir, logfile, checkpoint_path_validation, checkpoint_path_final
 
-
 def stack_first_dim(x):
     """
     Method to combine the first two dimension of an array
@@ -78,7 +74,6 @@ def stack_first_dim(x):
         new_shape += x_shape[2:]
     return x.view(new_shape)
 
-
 def split_first_dim_linear(x, first_two_dims):
     """
     Undo the stacking operation
@@ -88,7 +83,6 @@ def split_first_dim_linear(x, first_two_dims):
     if len(x_shape) > 1:
         new_shape += [x_shape[-1]]
     return x.view(new_shape)
-
 
 def sample_normal(mean, var, num_samples):
     """
@@ -101,7 +95,6 @@ def sample_normal(mean, var, num_samples):
     sample_shape = [num_samples] + len(mean.size())*[1]
     normal_distribution = torch.distributions.Normal(mean.repeat(sample_shape), var.repeat(sample_shape))
     return normal_distribution.rsample()
-
 
 def loss(test_logits_sample, test_labels, device):
     """
@@ -117,7 +110,6 @@ def loss(test_logits_sample, test_labels, device):
     score = torch.logsumexp(log_py, dim=0) - torch.log(num_samples)
     return -torch.sum(score, dim=0)
 
-
 def aggregate_accuracy(test_logits_sample, test_labels):
     """
     Compute classification accuracy.
@@ -125,10 +117,8 @@ def aggregate_accuracy(test_logits_sample, test_labels):
     averaged_predictions = torch.logsumexp(test_logits_sample, dim=0)
     return torch.mean(torch.eq(test_labels, torch.argmax(averaged_predictions, dim=-1)).float())
 
-
 def linear_classifier(x, param_dict, num_samples):
     """
     Classifier.
     """
     return F.linear(x, param_dict['weight_mean'], param_dict['bias_mean'])
-

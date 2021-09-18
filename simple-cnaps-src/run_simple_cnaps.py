@@ -15,11 +15,9 @@ NUM_VALIDATION_TASKS = 200
 NUM_TEST_TASKS = 600
 VALIDATION_FREQUENCY = 10000
 
-
 def main():
     learner = Learner()
     learner.run()
-
 
 class Learner:
     def __init__(self):
@@ -90,6 +88,7 @@ class Learner:
                             help="Maximum support set size of meta-dataset meta-test task.")
         parser.add_argument("--shuffle_dataset", type=bool, default=True,
                             help="As per default, shuffles images before task generation. Set False to re-create paper results, and True for leaderboard results.")
+
         args = parser.parse_args()
 
         return args

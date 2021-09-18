@@ -10,7 +10,6 @@ from meta_dataset.data import learning_spec
 from meta_dataset.data import pipeline
 from meta_dataset.data import config
 
-
 class MetaDatasetReader:
     """
     Class that wraps the Meta-Dataset episode reader.
@@ -168,7 +167,6 @@ class MetaDatasetReader:
             simclr_episode_fraction=0.0
         )
 
-
 class SingleDatasetReader:
     """
     Class that wraps the Meta-Dataset episode reader to read in a single dataset.
@@ -263,4 +261,3 @@ class SingleDatasetReader:
             ignore_hierarchy_probability=0.0,
             simclr_episode_fraction=0.0
         )
-

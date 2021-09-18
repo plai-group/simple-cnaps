@@ -17,11 +17,9 @@ NUM_VALIDATION_TASKS = 200
 NUM_TEST_TASKS = 600
 VALIDATION_FREQUENCY = 1000
 
-
 def main():
     learner = Learner()
     learner.run()
-
 
 class Learner:
     def __init__(self):
@@ -85,6 +83,7 @@ class Learner:
                             help="Number of test examples per class in the task.")
         parser.add_argument("--dataset", choices=["mini", "tiered"], default="mini",
                             help="Imagenet subset dataset to be used.")
+                            
         args = parser.parse_args()
 
         return args
@@ -210,7 +209,6 @@ class Learner:
         if self.args.feature_adaptation == "film+ar":
             use_two_gpus = True  # film+ar model does not fit on one GPU, so use model parallelism
         return use_two_gpus
-
 
 if __name__ == "__main__":
     main()

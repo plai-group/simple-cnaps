@@ -4,11 +4,13 @@ import argparse
 import os
 import sys
 from utils import print_and_log, get_log_files, ValidationAccuracies, loss, aggregate_accuracy
-from simple_cnaps import SimpleCnaps
+from model import TransductiveCnaps
 from meta_dataset_reader import MetaDatasetReader
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'  # Quiet TensorFlow warnings
 import tensorflow as tf
 tf.compat.v1.logging.set_verbosity(tf.compat.v1.logging.ERROR)  # Quiet TensorFlow warnings
+
+from tqdm import tqdm
 
 NUM_TRAIN_TASKS = 110000
 NUM_VALIDATION_TASKS = 200
@@ -36,8 +38,7 @@ class Learner:
         self.model = self.init_model()
         self.train_set, self.validation_set, self.test_set = self.init_data()
         self.metadataset = MetaDatasetReader(self.args.data_path, self.args.mode, self.train_set, self.validation_set,
-                                             self.test_set, self.args.max_way_train, self.args.max_way_test,
-                                             self.args.max_support_train, self.args.max_support_test, self.args.shuffle_dataset)
+                                             self.test_set, self.args.qnum)
         self.loss = loss
         self.accuracy_fn = aggregate_accuracy
         self.optimizer = torch.optim.Adam(self.model.parameters(), lr=self.args.learning_rate)
@@ -46,11 +47,12 @@ class Learner:
 
     def init_model(self):
         use_two_gpus = self.use_two_gpus()
-        model = SimpleCnaps(device=self.device, use_two_gpus=use_two_gpus, args=self.args).to(self.device)
+        model = TransductiveCnaps(device=self.device, use_two_gpus=use_two_gpus, args=self.args).to(self.device)
         model.train()  # set encoder is always in train mode to process context data
         model.feature_extractor.eval()  # feature extractor is always in eval mode
         if use_two_gpus:
             model.distribute_model()
+        #model.load_state_dict(torch.load(self.args.test_model_path, map_location='cuda:0'))
         return model
 
     def init_data(self):
@@ -60,6 +62,7 @@ class Learner:
                           'mscoco']
         test_set = ['ilsvrc_2012', 'omniglot', 'aircraft', 'cu_birds', 'dtd', 'quickdraw', 'fungi', 'vgg_flower',
                     'traffic_sign', 'mscoco', 'mnist', 'cifar10', 'cifar100']
+        #test_set = ['traffic_sign', 'omniglot', 'aircraft', 'cu_birds', 'dtd', 'vgg_flower', 'mscoco']
 
         return train_set, validation_set, test_set
 
@@ -90,6 +93,13 @@ class Learner:
                             help="Maximum support set size of meta-dataset meta-test task.")
         parser.add_argument("--shuffle_dataset", type=bool, default=True,
                             help="As per default, shuffles images before task generation. Set False to re-create paper results, and True for leaderboard results.")
+
+        # Transductive CNAPS specific parameters
+        parser.add_argument("--min_cluster_refinement_steps_train", type=int, default=0, help="Minimum number of cluster refinement steps to take whilst training.")
+        parser.add_argument("--max_cluster_refinement_steps_train", type=int, default=0, help="Maximum number of cluster refinement steps to take whilst training.")
+        parser.add_argument("--min_cluster_refinement_steps_test", type=int, default=2, help="Minimum number of cluster refinement steps to take.")
+        parser.add_argument("--max_cluster_refinement_steps_test", type=int, default=4, help="Maximum number of cluster refinement steps to take.")
+
         args = parser.parse_args()
 
         return args
@@ -99,12 +109,13 @@ class Learner:
         config.gpu_options.allow_growth = True
         with tf.compat.v1.Session(config=config) as session:
             if self.args.mode == 'train' or self.args.mode == 'train_test':
+                self.model.set_to_train_mode()
                 train_accuracies = []
                 losses = []
                 total_iterations = NUM_TRAIN_TASKS
                 for iteration in range(total_iterations):
                     torch.set_grad_enabled(True)
-                    task_dict = self.metadataset.get_train_task()
+                    task_dict = self.metadataset.get_train_task(session)
                     task_loss, task_accuracy = self.train_task(task_dict)
                     train_accuracies.append(task_accuracy)
                     losses.append(task_loss)
@@ -137,10 +148,31 @@ class Learner:
                 torch.save(self.model.state_dict(), self.checkpoint_path_final)
 
             if self.args.mode == 'train_test':
+                print("Evaluating with train mode max/min refinement steps.")
+                print("Max refinement steps (train): " + str(self.args.max_cluster_refinement_steps_train))
+                print("Min refinement steps (train): " + str(self.args.min_cluster_refinement_steps_train))
+                self.model.set_to_train_mode()
+                self.test(self.checkpoint_path_final, session)
+                self.test(self.checkpoint_path_validation, session)
+
+                print("Evaluating with test mode max/min refinement steps.")
+                print("Max refinement steps (test): " + str(self.args.max_cluster_refinement_step_test))
+                print("Min refinement steps (test): " + str(self.args.min_cluster_refinement_steps_test))
+                self.model.set_to_test_mode()
                 self.test(self.checkpoint_path_final, session)
                 self.test(self.checkpoint_path_validation, session)
 
             if self.args.mode == 'test':
+                print("Evaluating with train mode max/min refinement steps.")
+                print("Max refinement steps (train): " + str(self.args.max_cluster_refinement_steps_train))
+                print("Min refinement steps (train): " + str(self.args.min_cluster_refinement_steps_train))
+                self.model.set_to_train_mode()
+                self.test(self.args.test_model_path, session)
+
+                print("Evaluating with test mode max/min refinement steps.")
+                print("Max refinement steps (test): " + str(self.args.max_cluster_refinement_step_test))
+                print("Min refinement steps (test): " + str(self.args.min_cluster_refinement_steps_test))
+                self.model.set_to_test_mode()
                 self.test(self.args.test_model_path, session)
 
             self.logfile.close()
@@ -169,7 +201,7 @@ class Learner:
             for item in self.validation_set:
                 accuracies = []
                 for _ in range(NUM_VALIDATION_TASKS):
-                    task_dict = self.metadataset.get_validation_task(item)
+                    task_dict = self.metadataset.get_validation_task(item, session)
                     context_images, target_images, context_labels, target_labels = self.prepare_task(task_dict)
                     target_logits = self.model(context_images, context_labels, target_images)
                     accuracy = self.accuracy_fn(target_logits, target_labels)
@@ -185,7 +217,9 @@ class Learner:
 
     def test(self, path, session):
         self.model = self.init_model()
-        self.model.load_state_dict(torch.load(path))
+        # self.model.load_state_dict(torch.load(path))
+        self.model.load_state_dict(torch.load(path, map_location='cuda:0'))
+
         print_and_log(self.logfile, "")  # add a blank line
         print_and_log(self.logfile, 'Testing model {0:}: '.format(path))
 
@@ -193,7 +227,7 @@ class Learner:
             for item in self.test_set:
                 accuracies = []
                 for _ in range(NUM_TEST_TASKS):
-                    task_dict = self.metadataset.get_test_task(item)
+                    task_dict = self.metadataset.get_test_task(item, session)
                     context_images, target_images, context_labels, target_labels = self.prepare_task(task_dict)
                     target_logits = self.model(context_images, context_labels, target_images)
                     accuracy = self.accuracy_fn(target_logits, target_labels)
