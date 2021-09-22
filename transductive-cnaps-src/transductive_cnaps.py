@@ -14,15 +14,17 @@ class TransductiveCnaps(nn.Module):
     :param device: (str) Device (gpu or cpu) on which model resides.
     :param use_two_gpus: (bool) Whether to paralleize the model (model parallelism) across two GPUs.
     :param args: (Argparser) Arparse object containing model hyper-parameters.
+    :param cluster_refinement_param_mode: (str) One of 'train' or 'test', specifying which min/max set of params to use
+    :param mt: (bool) If true, model is being evaluated on mini/tiered imagenet - loads ResNet checkpoints differently
     """
-    def __init__(self, device, use_two_gpus, args):
-        super(TransductiveCnaps, mode="test", self).__init__()
-        self.mode = mode
+    def __init__(self, device, use_two_gpus, args, cluster_refinement_param_mode="test", mt=False):
+        super(TransductiveCnaps, self).__init__()
+        self.cluster_refinement_param_mode = cluster_refinement_param_mode
         self.args = args
         self.device = device
         self.use_two_gpus = use_two_gpus
         networks = ConfigureNetworks(pretrained_resnet_path=self.args.pretrained_resnet_path,
-                                     feature_adaptation=self.args.feature_adaptation)
+                                     feature_adaptation=self.args.feature_adaptation, mt=mt)
         self.set_encoder = networks.get_encoder()
 
         self.feature_extractor = networks.get_feature_extractor()
@@ -33,17 +35,17 @@ class TransductiveCnaps(nn.Module):
         self.class_means = None
         self.class_precisions = None
 
-    def set_to_train_mode(self):
+    def set_cluster_refinement_param_mode_to_train(self):
         """
         Sets model mode to training. Max/min refinement steps set to train time specific values.
         """
-        self.mode = "train"
+        self.cluster_refinement_param_mode = "train"
 
-    def set_to_train_mode(self):
+    def set_cluster_refinement_param_mode_to_test(self):
         """
         Sets model mode to testing. Max/min refinement steps set to test time specific values.
         """
-        self.mode = "test"
+        self.cluster_refinement_param_mode = "test"
 
     def forward(self, context_images, context_labels, target_images):
         """
@@ -70,7 +72,7 @@ class TransductiveCnaps(nn.Module):
         # relabel the data. If the model is in "train" mode, we do at least `min_cluster_refinement_steps_train`
         # iterations, and then break early if the labels stop changing or continue for a 'max_cluster_refinement_steps_train'
         # steps. If the model is in "test" mode, test mode step paramters are used.
-        if self.mode == "train":
+        if self.cluster_refinement_param_mode == "train":
             if self.args.max_cluster_refinement_steps_train > 0:
                 combined_features = torch.cat([context_features, target_features], dim=0)
                 for step in range(self.args.max_cluster_refinement_steps_train):
@@ -84,7 +86,7 @@ class TransductiveCnaps(nn.Module):
                         delta_l = (old_logits.argmax(dim=1) != target_logits.argmax(dim=1)).sum().detach().cpu().item()
                         if delta_l == 0:
                             break
-        elif self.mode == "test":
+        elif self.cluster_refinement_param_mode == "test":
             if self.args.max_cluster_refinement_steps_test > 0:
                 combined_features = torch.cat([context_features, target_features], dim=0)
                 for step in range(self.args.max_cluster_refinement_steps_test):

@@ -255,22 +255,54 @@ class FilmResNet(ResNet):
 
         return x
 
-def resnet18(pretrained=False, pretrained_model_path=None, **kwargs):
+def resnet18(pretrained=False, pretrained_model_path=None, mt=False, **kwargs):
     """
         Constructs a ResNet-18 model.
     """
+
+    # if mt flag is set (mini/tiered imagenet scenario)
+    if mt:
+        return resnet18_mt(pretrained, pretrained_model_path, **kwargs)
+
     model = ResNet(BasicBlock, [2, 2, 2, 2], **kwargs)
     if pretrained:
         ckpt_dict = torch.load(pretrained_model_path)
         model.load_state_dict(ckpt_dict['state_dict'])
     return model
 
-def film_resnet18(pretrained=False, pretrained_model_path=None, **kwargs):
+def film_resnet18(pretrained=False, pretrained_model_path=None, mt=False, **kwargs):
     """
         Constructs a FiLM adapted ResNet-18 model.
     """
+
+    # if mt flag is set (mini/tiered imagenet scenario)
+    if mt:
+        return film_resnet18_mt(pretrained, pretrained_model_path, **kwargs)
+
     model = FilmResNet(BasicBlockFilm, [2, 2, 2, 2], **kwargs)
     if pretrained:
         ckpt_dict = torch.load(pretrained_model_path)
         model.load_state_dict(ckpt_dict['state_dict'])
+    return model
+
+def resnet18_mt(pretrained=False, pretrained_model_path=None, **kwargs):
+    """
+        Constructs a ResNet-18 model.
+    """
+    model = ResNet(BasicBlock, [2, 2, 2, 2], **kwargs)
+    if pretrained:
+        ckpt_dict = torch.load(pretrained_model_path)
+        model.load_state_dict(ckpt_dict)
+    return model
+
+
+def film_resnet18_mt(pretrained=False, pretrained_model_path=None, **kwargs):
+    """
+        Constructs a FiLM adapted ResNet-18 model.
+    """
+    model = FilmResNet(BasicBlockFilm, [2, 2, 2, 2], **kwargs)
+    model_state = model.state_dict()
+    if pretrained:
+        ckpt_dict = torch.load(pretrained_model_path)
+        model.load_state_dict(ckpt_dict['resnet_dict'])
     return model

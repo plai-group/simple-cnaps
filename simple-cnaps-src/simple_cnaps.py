@@ -6,9 +6,6 @@ from config_networks import ConfigureNetworks
 from set_encoder import mean_pooling
 import torch.nn.functional as F
 import numpy as np
-import networkx as nx
-import scipy.sparse as sp
-from scipy.sparse import csgraph
 
 torch.autograd.set_detect_anomaly(True)
 
@@ -22,13 +19,13 @@ class SimpleCnaps(nn.Module):
     :param use_two_gpus: (bool) Whether to paralleize the model (model parallelism) across two GPUs.
     :param args: (Argparser) Arparse object containing model hyper-parameters.
     """
-    def __init__(self, device, use_two_gpus, args):
+    def __init__(self, device, use_two_gpus, args, mt=False):
         super(SimpleCnaps, self).__init__()
         self.args = args
         self.device = device
         self.use_two_gpus = use_two_gpus
         networks = ConfigureNetworks(pretrained_resnet_path=self.args.pretrained_resnet_path,
-                                     feature_adaptation=self.args.feature_adaptation)
+                                     feature_adaptation=self.args.feature_adaptation, mt=mt)
         self.set_encoder = networks.get_encoder()
 
         """

@@ -4,7 +4,7 @@ import argparse
 import os
 import sys
 from utils import print_and_log, get_log_files, ValidationAccuracies, loss, aggregate_accuracy
-from model import SimpleCnaps
+from simple_cnaps import SimpleCnaps
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'  # Quiet TensorFlow warnings
 import tensorflow as tf
 tf.compat.v1.logging.set_verbosity(tf.compat.v1.logging.ERROR)  # Quiet TensorFlow warnings
@@ -51,7 +51,7 @@ class Learner:
 
     def init_model(self):
         use_two_gpus = self.use_two_gpus()
-        model = SimpleCnaps(device=self.device, use_two_gpus=use_two_gpus, args=self.args).to(self.device)
+        model = SimpleCnaps(device=self.device, use_two_gpus=use_two_gpus, args=self.args, mt=True).to(self.device)
         model.train()  # set encoder is always in train mode to process context data
         model.feature_extractor.eval()  # feature extractor is always in eval mode
         if use_two_gpus:
@@ -71,9 +71,9 @@ class Learner:
         parser.add_argument("--learning_rate", "-lr", type=float, default=5e-4, help="Learning rate.")
         parser.add_argument("--tasks_per_batch", type=int, default=16,
                             help="Number of tasks between parameter optimizations.")
-        parser.add_argument("--checkpoint_dir", "-c", default='../checkpoints', help="Directory to save checkpoint to.")
+        parser.add_argument("--checkpoint_dir", "-c", default='./checkpoints', help="Directory to save checkpoint to.")
         parser.add_argument("--test_model_path", "-m", default=None, help="Path to model to load and test.")
-        parser.add_argument("--feature_adaptation", choices=["no_adaptation", "film", "film+ar"], default="film+ar",
+        parser.add_argument("--feature_adaptation", choices=["no_adaptation", "film", "film+ar"], default="film",
                             help="Method to adapt feature extractor parameters.")
         parser.add_argument("--shots", type=int, default=1,
                             help="Number of shots in the task.")

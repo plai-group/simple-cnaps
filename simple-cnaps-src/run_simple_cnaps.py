@@ -75,9 +75,9 @@ class Learner:
         parser.add_argument("--learning_rate", "-lr", type=float, default=5e-4, help="Learning rate.")
         parser.add_argument("--tasks_per_batch", type=int, default=16,
                             help="Number of tasks between parameter optimizations.")
-        parser.add_argument("--checkpoint_dir", "-c", default='../checkpoints', help="Directory to save checkpoint to.")
+        parser.add_argument("--checkpoint_dir", "-c", default='./checkpoints', help="Directory to save checkpoint to.")
         parser.add_argument("--test_model_path", "-m", default=None, help="Path to model to load and test.")
-        parser.add_argument("--feature_adaptation", choices=["no_adaptation", "film", "film+ar"], default="film+ar",
+        parser.add_argument("--feature_adaptation", choices=["no_adaptation", "film", "film+ar"], default="film",
                             help="Method to adapt feature extractor parameters.")
         parser.add_argument("--max_way_train", type=int, default=40,
                             help="Maximum way of meta-dataset meta-train task.")

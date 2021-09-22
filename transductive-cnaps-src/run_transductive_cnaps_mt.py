@@ -4,7 +4,7 @@ import argparse
 import os
 import sys
 from utils import print_and_log, get_log_files, ValidationAccuracies, loss, aggregate_accuracy
-from model import SimpleCnaps
+from transductive_cnaps import TransductiveCnaps
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'  # Quiet TensorFlow warnings
 import tensorflow as tf
 tf.compat.v1.logging.set_verbosity(tf.compat.v1.logging.ERROR)  # Quiet TensorFlow warnings
@@ -51,7 +51,7 @@ class Learner:
 
     def init_model(self):
         use_two_gpus = self.use_two_gpus()
-        model = SimpleCnaps(device=self.device, use_two_gpus=use_two_gpus, args=self.args).to(self.device)
+        model = TransductiveCnaps(device=self.device, use_two_gpus=use_two_gpus, args=self.args, mt=True).to(self.device)
         model.train()  # set encoder is always in train mode to process context data
         model.feature_extractor.eval()  # feature extractor is always in eval mode
         if use_two_gpus:
@@ -73,7 +73,7 @@ class Learner:
                             help="Number of tasks between parameter optimizations.")
         parser.add_argument("--checkpoint_dir", "-c", default='../checkpoints', help="Directory to save checkpoint to.")
         parser.add_argument("--test_model_path", "-m", default=None, help="Path to model to load and test.")
-        parser.add_argument("--feature_adaptation", choices=["no_adaptation", "film", "film+ar"], default="film+ar",
+        parser.add_argument("--feature_adaptation", choices=["no_adaptation", "film", "film+ar"], default="film",
                             help="Method to adapt feature extractor parameters.")
         parser.add_argument("--shots", type=int, default=1,
                             help="Number of shots in the task.")
@@ -87,8 +87,8 @@ class Learner:
         # Transductive CNAPS specific parameters
         parser.add_argument("--min_cluster_refinement_steps_train", type=int, default=0, help="Minimum number of cluster refinement steps to take whilst training.")
         parser.add_argument("--max_cluster_refinement_steps_train", type=int, default=0, help="Maximum number of cluster refinement steps to take whilst training.")
-        parser.add_argument("--min_cluster_refinement_steps", type=int, default=2, help="Minimum number of cluster refinement steps to take.")
-        parser.add_argument("--max_cluster_refinement_steps", type=int, default=4, help="Maximum number of cluster refinement steps to take.")
+        parser.add_argument("--min_cluster_refinement_steps_test", type=int, default=2, help="Minimum number of cluster refinement steps to take.")
+        parser.add_argument("--max_cluster_refinement_steps_test", type=int, default=4, help="Maximum number of cluster refinement steps to take.")
 
         args = parser.parse_args()
 
@@ -100,7 +100,7 @@ class Learner:
         validation_accuracy = 0
         with tf.compat.v1.Session(config=config) as session:
             if self.args.mode == 'train' or self.args.mode == 'train_test':
-                self.model.set_to_train_mode()
+                self.model.set_cluster_refinement_param_mode_to_train()
                 train_accuracies = []
                 losses = []
                 total_iterations = NUM_TRAIN_TASKS
@@ -139,29 +139,25 @@ class Learner:
                 print("Evaluating with train mode max/min refinement steps.")
                 print("Max refinement steps (train): " + str(self.args.max_cluster_refinement_steps_train))
                 print("Min refinement steps (train): " + str(self.args.min_cluster_refinement_steps_train))
-                self.model.set_to_train_mode()
-                self.test(self.checkpoint_path_final, session)
-                self.test(self.checkpoint_path_validation, session)
+                self.test(self.checkpoint_path_final, session, "train")
+                self.test(self.checkpoint_path_validation, session, "train")
 
                 print("Evaluating with test mode max/min refinement steps.")
                 print("Max refinement steps (test): " + str(self.args.max_cluster_refinement_step_test))
                 print("Min refinement steps (test): " + str(self.args.min_cluster_refinement_steps_test))
-                self.model.set_to_test_mode()
-                self.test(self.checkpoint_path_final, session)
-                self.test(self.checkpoint_path_validation, session)
+                self.test(self.checkpoint_path_final, session, "test")
+                self.test(self.checkpoint_path_validation, session, "test")
 
             if self.args.mode == 'test':
                 print("Evaluating with train mode max/min refinement steps.")
                 print("Max refinement steps (train): " + str(self.args.max_cluster_refinement_steps_train))
                 print("Min refinement steps (train): " + str(self.args.min_cluster_refinement_steps_train))
-                self.model.set_to_train_mode()
-                self.test(self.args.test_model_path, session)
+                self.test(self.args.test_model_path, session, "train")
 
                 print("Evaluating with test mode max/min refinement steps.")
                 print("Max refinement steps (test): " + str(self.args.max_cluster_refinement_step_test))
                 print("Min refinement steps (test): " + str(self.args.min_cluster_refinement_steps_test))
-                self.model.set_to_test_mode()
-                self.test(self.args.test_model_path, session)
+                self.test(self.args.test_model_path, session, "test")
 
             self.logfile.close()
 
@@ -208,9 +204,16 @@ class Learner:
 
         return accuracy
 
-    def test(self, path, session):
+    def test(self, path, session, cluster_refinement_param_mode):
         self.model = self.init_model()
         self.model.load_state_dict(torch.load(path))
+
+        if cluster_refinement_param_mode == "train":
+            self.model.set_cluster_refinement_param_mode_to_train()
+        elif cluster_refinement_param_mode == "test":
+            self.model.set_cluster_refinement_param_mode_to_test()
+        else:
+            raise Exception("Model mode should be one of 'train' or 'test'.")
 
         print_and_log(self.logfile, "")  # add a blank line
         print_and_log(self.logfile, 'Testing model {0:}: '.format(path))
