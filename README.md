@@ -3,13 +3,13 @@
 This repository contains relevant sources code for the following papers:
 - [Improved Few-Shot Visual Classification](https://openaccess.thecvf.com/content_CVPR_2020/html/Bateni_Improved_Few-Shot_Visual_Classification_CVPR_2020_paper.html) @ IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR), 2020
 - [Enhancing Few-Shot Image Classification with Unlabelled Examples](https://arxiv.org/abs/2006.12245) @ IEEE/CVF Winter Conference on Applications of Computer Vision (WACV), 2022 (in submission)
-- Towards Better Few-Shot Object Recognition @ IEEE TPAMI Special Issue on Learning with Fewer Labels in Computer Vision, 2022 (in submission)
+- [Towards Better Few-Shot Object Recognition]() @ IEEE TPAMI Special Issue on Learning with Fewer Labels in Computer Vision, 2022 (in submission)
 
 The code base has been authored by Peyman Bateni, Jarred Barber, Raghav Goyal, Vaden Masrani, Dr. Jan-Willemn van de Meent, Dr. Leonid Sigal and Dr. Frank Wood. The source code builds upon the original code base for CNAPS authored by John Bronskill, Jonathan Gordon, James Reqeima, Sebastian Nowozin, and Richard E. Turner. We would like to thank them for their help, support and early sharing of their work. To see the original CNAPS repository, visit https://github.com/cambridge-mlg/cnaps.
 
 ## Simple CNAPS
 
-Simple CNAPS proposes the use of hierarchically regularized cluster means and covariance estimates within a Mahalanobis-distance based classifer for improved few-shot classification accuracy. This method incorporates said classifier within the same neural adaptive feature extractor as CNAPS. For more details, please refer to our paper on Simple CNAPS: [Improved Few-Shot Visual Classification](https://openaccess.thecvf.com/content_CVPR_2020/html/Bateni_Improved_Few-Shot_Visual_Classification_CVPR_2020_paper.html). The source code for this paper has been provided in the [simple-cnaps-src]() directory. To reproduce our results, please refer to the README.md file within that folder.
+Simple CNAPS proposes the use of hierarchically regularized cluster means and covariance estimates within a Mahalanobis-distance based classifer for improved few-shot classification accuracy. This method incorporates said classifier within the same neural adaptive feature extractor as CNAPS. For more details, please refer to our paper on Simple CNAPS: [Improved Few-Shot Visual Classification](https://openaccess.thecvf.com/content_CVPR_2020/html/Bateni_Improved_Few-Shot_Visual_Classification_CVPR_2020_paper.html). The source code for this paper has been provided in the [simple-cnaps-src](https://github.com/plai-group/simple-cnaps/simple-cnaps-src) directory. To reproduce our results, please refer to the README.md file within that folder.
 
 Global Meta-Dataset Rank (Simple CNAPS): https://github.com/google-research/meta-dataset#training-on-all-datasets
 
@@ -28,7 +28,7 @@ Global Tiered-ImageNet Rank (Simple CNAPS):
 [![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/improved-few-shot-visual-classification/few-shot-image-classification-on-tiered-3)](https://paperswithcode.com/sota/few-shot-image-classification-on-tiered-3?p=improved-few-shot-visual-classification)
 
 ## Transductive CNAPS
-Transductive CNAPS extends the Simple CNAPS framework to the transductive few-shot learning setting where all query examples are provided at once. This method uses a two-step transductive task-encoder for adapting the feature extractor as well as a soft k-mean cluster refinement procedure, resulting in better test-time accuracy. For additional details, please refer to our paper on Transductive CNAPS: [Enhancing Few-Shot Image Classification with Unlabelled Examples](https://arxiv.org/abs/2006.12245). The source code for this is provided under the [transductive-cnaps-src]() directory. To reproduce our results, please refer to the README.md file within this folder.
+Transductive CNAPS extends the Simple CNAPS framework to the transductive few-shot learning setting where all query examples are provided at once. This method uses a two-step transductive task-encoder for adapting the feature extractor as well as a soft k-mean cluster refinement procedure, resulting in better test-time accuracy. For additional details, please refer to our paper on Transductive CNAPS: [Enhancing Few-Shot Image Classification with Unlabelled Examples](https://arxiv.org/abs/2006.12245). The source code for this is provided under the [transductive-cnaps-src](https://github.com/plai-group/simple-cnaps/transductive-cnaps-src) directory. To reproduce our results, please refer to the README.md file within this folder.
 
 Global Meta-Dataset Rank (Transductive CNAPS): https://github.com/google-research/meta-dataset#training-on-all-datasets
 
@@ -46,6 +46,10 @@ Global Tiered-ImageNet Rank (Transductive CNAPS):
 [![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/improving-few-shot-visual-classification-with/few-shot-image-classification-on-mini-12)](https://paperswithcode.com/sota/few-shot-image-classification-on-mini-12?p=improving-few-shot-visual-classification-with)
 [![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/improving-few-shot-visual-classification-with/few-shot-image-classification-on-mini-13)](https://paperswithcode.com/sota/few-shot-image-classification-on-mini-13?p=improving-few-shot-visual-classification-with)
 
+## Active and Continual Learning
+
+We additionally evaluate both methods within the paradigms of "out of the box" active and continual learning. This settings was first proposed by Requeima et al., and studies how well few-shot classifier, trained for few-shot learning, can be deployed for active and continual learning without any problem-specific finetuning or training. For additional details on our active and continual learning experiments and algorithms, please refer to our latest paper: [Towards Better Few-Shot Object Recognition](). For code and instructions to reproduce the experiments reported, please refer to the [active-learning](https://github.com/plai-group/simple-cnaps/active-learning) and [continual-learning](https://github.com/plai-group/simple-cnaps/continual-learning) folders.
+
 ## Dependencies
 You can use the ```requirements.txt``` file included to install dependencies for both Simple CNAPS, Transductive CNAPS, relevant active/continual learning experiments and the accompanying source codes for Meta-Dataset, mini-ImageNet and tiered-ImageNet. To install all dependencies, run ```pip install -r requirements.txt```. In general, this code base requires Python 3.5 or greater, PyTorch 1.0 or greater and TensorFlow 2.0 or greater.
 
@@ -56,8 +60,6 @@ The GPU requirements for Simple CNAPS are:
 We recommend the same settings for testing.
 
 ## Meta-Dataset Results
-
-**Models trained on all datasets (with ```--shuffle_dataset False```)**
 
 | Dataset                         | Simple CNAPS | Simple CNAPS | Transductive CNAPS | Transductive CNAPS |
 | ```--shuffle_dataset False```   | False        | True         | False              | True               |
@@ -82,7 +84,7 @@ We recommend the same settings for testing.
 | Out-of-Domain Average Accuracy  | 69.7±0.8     | 65.8±0.8     | 71.8±0.8           | 66.5±0.8           |
 | Overall Average Accuracy        | 72.2±0.8     | 71.2±0.8     | 73.9±0.8           | 71.8±0.8           |
 
-**Mini-ImageNet Results
+## Mini-ImageNet Results
 
 | Setup                           | 5-way 1-shot | 5-way 5-shot    | 10-way 1-shot    | 10-way 5-shot    |
 | ---                             | ---          | ---             | ---              | ---              |
@@ -92,7 +94,7 @@ We recommend the same settings for testing.
 | Simple CNAPS + FETI             | 77.4±0.8     | 90.3±0.4        | 63.5±0.6         | 83.1±0.4         |
 | Transductive CNAPS + FETI       | 79.9±0.8     | 91.5±0.4        | 68.5±0.6         | 85.9±0.3         |
 
-**Tiered-ImageNet Results
+## Tiered-ImageNet Results
 
 | Setup                           | 5-way 1-shot | 5-way 5-shot    | 10-way 1-shot    | 10-way 5-shot    |
 | ---                             | ---          | ---             | ---              | ---              |
@@ -103,7 +105,7 @@ We recommend the same settings for testing.
 | Transductive CNAPS + FETI       | 73.8±1.0     | 87.7±0.6        | 65.1±0.8         | 80.6±0.5         |
 
 ## Citation
-We hope you have found this repository helpful! If you use our code base, please cite our papers:
+We hope you have found our code base helpful! If you use this repository, please cite our papers:
 
 ```
 @InProceedings{Bateni2020_SimpleCNAPS,
