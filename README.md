@@ -1,24 +1,44 @@
 # Improved Few-Shot Visual Classification
 
-This directory contains the code for the paper, "Improved Few-Shot Visual Classification", which has been published at IEEE CVPR 2020. For a pdf copy of the paper, please visit IEEE CVF at https://openaccess.thecvf.com/content_CVPR_2020/html/Bateni_Improved_Few-Shot_Visual_Classification_CVPR_2020_paper.html or our ArXiv copy at https://arxiv.org/pdf/1912.03432.pdf.
+This repository contains relevant sources code for the following papers:
+- [Improved Few-Shot Visual Classification](https://openaccess.thecvf.com/content_CVPR_2020/html/Bateni_Improved_Few-Shot_Visual_Classification_CVPR_2020_paper.html) @ IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR), 2020
+- [Enhancing Few-Shot Image Classification with Unlabelled Examples](https://arxiv.org/abs/2006.12245), IEEE/CVF Winter Conference on Applications of Computer Vision (WACV), 2022 (in submission)
+- Towards Better Few-Shot Object Recognition, TPAMI Special Issue on Learning with Fewer Labels in Computer Vision, 2022 (in submission)
 
-Global Meta-Dataset rank: https://github.com/google-research/meta-dataset#training-on-all-datasets
+The code base has been authored by Peyman Bateni, Jarred Barber, Raghav Goyal, Vaden Masrani, Dr. Jan-Willemn van de Meent, Dr. Leonid Sigal and Dr. Frank Wood. The source code builds upon the original code base for CNAPS authored by John Bronskill, Jonathan Gordon, James Reqeima, Sebastian Nowozin, and Richard E. Turner. We would like to thank them for their help, support and early sharing of their work. To see the original CNAPS repository, visit https://github.com/cambridge-mlg/cnaps.
 
-Global mini-ImageNet rank:
+## Simple CNAPS
+
+Simple CNAPS proposes the use of hierarchically regularized cluster means and covariance estimates within a Mahalanobis-distance based classifer for improved few-shot classification accuracy. This method incorporates said classifier within the same neural adaptive feature extractor as CNAPS. For more details, please refer to our paper on Simple CNAPS: [Improved Few-Shot Visual Classification](https://openaccess.thecvf.com/content_CVPR_2020/html/Bateni_Improved_Few-Shot_Visual_Classification_CVPR_2020_paper.html). The source code for this paper has been provided in the [simple-cnaps-src]() directory. To reproduce our results, please refer to the README.md file within that folder.
+
+Global Meta-Dataset Rank (Simple CNAPS): https://github.com/google-research/meta-dataset#training-on-all-datasets
+
+Global Mini-ImageNet Rank (Simple CNAPS):
 
 [![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/improved-few-shot-visual-classification/few-shot-image-classification-on-mini-2)](https://paperswithcode.com/sota/few-shot-image-classification-on-mini-2?p=improved-few-shot-visual-classification)
 [![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/improved-few-shot-visual-classification/few-shot-image-classification-on-mini-3)](https://paperswithcode.com/sota/few-shot-image-classification-on-mini-3?p=improved-few-shot-visual-classification)
 [![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/improved-few-shot-visual-classification/few-shot-image-classification-on-mini-12)](https://paperswithcode.com/sota/few-shot-image-classification-on-mini-12?p=improved-few-shot-visual-classification)
 [![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/improved-few-shot-visual-classification/few-shot-image-classification-on-mini-13)](https://paperswithcode.com/sota/few-shot-image-classification-on-mini-13?p=improved-few-shot-visual-classification)
 
-Global tiered-ImageNet rank:
+Global Tiered-ImageNet Rank (Simple CNAPS):
 
 [![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/improved-few-shot-visual-classification/few-shot-image-classification-on-tiered)](https://paperswithcode.com/sota/few-shot-image-classification-on-tiered?p=improved-few-shot-visual-classification)
 [![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/improved-few-shot-visual-classification/few-shot-image-classification-on-tiered-1)](https://paperswithcode.com/sota/few-shot-image-classification-on-tiered-1?p=improved-few-shot-visual-classification)
 [![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/improved-few-shot-visual-classification/few-shot-image-classification-on-tiered-2)](https://paperswithcode.com/sota/few-shot-image-classification-on-tiered-2?p=improved-few-shot-visual-classification)
 [![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/improved-few-shot-visual-classification/few-shot-image-classification-on-tiered-3)](https://paperswithcode.com/sota/few-shot-image-classification-on-tiered-3?p=improved-few-shot-visual-classification)
 
-This code base builds upon the original source code for CNAPS authored by John Bronskill, Jonathan Gordon, James Reqeima, Sebastian Nowozin, and Richard E. Turner.  We would like to thank them for their help, support and early sharing of the source code. To see the original CNAPS repository, visit https://github.com/cambridge-mlg/cnaps.
+## Transductive CNAPS
+Simple CNAPS proposes the use of hierarchically regularized cluster means and covariance estimates within a Mahalanobis-distance based classifer for improved few-shot classification accuracy. This method incorporates said classifier within the same neural adaptive feature extractor as CNAPS. For more details, please refer to our paper on Simple CNAPS: [Improved Few-Shot Visual Classification](https://openaccess.thecvf.com/content_CVPR_2020/html/Bateni_Improved_Few-Shot_Visual_Classification_CVPR_2020_paper.html). The source code for this paper has been provided in the [simple-cnaps-src]() directory. To reproduce our results, please refer to the README.md file within that folder.
+
+Global Meta-Dataset Rank (Transductive CNAPS): https://github.com/google-research/meta-dataset#training-on-all-datasets
+
+Global Mini-ImageNet Rank (Transductive CNAPS):
+
+
+
+Global Tiered-ImageNet Rank (Transductive CNAPS):
+
+
 
 ## Dependencies
 This code requires the following.
