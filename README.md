@@ -7,7 +7,6 @@ This repository contains source codes for the following papers:
   @ IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR), 2020
   
 - [Enhancing Few-Shot Image Classification with Unlabelled Examples](https://arxiv.org/abs/2006.12245) 
-  
   @ IEEE/CVF Winter Conference on Applications of Computer Vision (WACV), 2022 (in submission)
   
 - [Towards Better Few-Shot Object Recognition]() 
