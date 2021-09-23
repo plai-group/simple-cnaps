@@ -11,7 +11,7 @@ You can use the requirements.txt file included to install dependencies for both 
 We conducted our experiments on two Tesla P100 GPUs with about 10GB of memory each. Lower capacity GPUs can be used to run these experiments by using a lower batch size and modifying parts of the code, as long as the pre-trained checkpoints for Simple and Transductive CNAPS can fit on the GPU(s).
 
 ## Dataset Installation
-We run active learning experiments on the OMNIGLOT and CIFAR10 benchmarks. For CIFAR10, the code to download the dataset has already been incorporated and the dataset will be setup during the first run. For OMNIGLOT, however, you will need to download the evaluation split of the OMNIGLOT dataset from https://github.com/brendenlake/omniglot/raw/master/python/images_evaluation.zip, unzip and place all images inside an ```omniglot/test``` test folder inside your dataset folder.
+We run active learning experiments on the OMNIGLOT and CIFAR10 benchmarks. For CIFAR10, the code to download the dataset has already been incorporated and the dataset will be setup during the first run. For OMNIGLOT, however, you will need to download the evaluation split of the OMNIGLOT dataset from https://github.com/brendenlake/omniglot/raw/master/python/images_evaluation.zip, unzip and place all images inside an ```omniglot/test``` test folder inside your dataset folder. If you encounter any dataset issues, please make sure that the data paths defined within the load functions for each dataset in ```run_continual_learning.py``` are constructed. Depending on your setup, python is some times unable to create all directories needed.
 
 ## Running Active Learning Experiments
 
