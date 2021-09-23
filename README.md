@@ -1,6 +1,6 @@
 # Improved Few-Shot Visual Classification
 
-This repository contains relevant sources code for the following papers:
+This repository contains source codes for the following papers:
 - [Improved Few-Shot Visual Classification](https://openaccess.thecvf.com/content_CVPR_2020/html/Bateni_Improved_Few-Shot_Visual_Classification_CVPR_2020_paper.html) @ IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR), 2020
 - [Enhancing Few-Shot Image Classification with Unlabelled Examples](https://arxiv.org/abs/2006.12245) @ IEEE/CVF Winter Conference on Applications of Computer Vision (WACV), 2022 (in submission)
 - [Towards Better Few-Shot Object Recognition]() @ IEEE TPAMI Special Issue on Learning with Fewer Labels in Computer Vision, 2022 (in submission)
