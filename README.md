@@ -85,112 +85,50 @@ We recommend the same settings for testing.
 | Setup                           | 5-way 1-shot | 5-way 5-shot    | 10-way 1-shot    | 10-way 5-shot    |
 | ---                             | ---          | ---             | ---              | ---              |
 | Simple CNAPS                    | 53.2±0.9     | 70.8±0.7        | 37.1±0.5         | 56.7±0.5         |
-| Simple CNAPS                    | 53.2±0.9     | 70.8±0.7        | 37.1±0.5         | 56.7±0.5         |
+| Transductive CNAPS              | 55.6±0.9     | 73.1±0.7        | 42.8±0.7         | 59.6±0.5         |
 | ---                             | ---          | ---             | ---              | ---              |
 | Simple CNAPS + FETI             | 77.4±0.8     | 90.3±0.4        | 63.5±0.6         | 83.1±0.4         |
-| Simple CNAPS + FETI             | 77.4±0.8     | 90.3±0.4        | 63.5±0.6         | 83.1±0.4         |
+| Transductive CNAPS + FETI       | 79.9±0.8     | 91.5±0.4        | 68.5±0.6         | 85.9±0.3         |
 
 **Tiered-ImageNet Results
 
 | Setup                           | 5-way 1-shot | 5-way 5-shot    | 10-way 1-shot    | 10-way 5-shot    |
 | ---                             | ---          | ---             | ---              | ---              |
 | Simple CNAPS                    | 63.0±1.0     | 80.0±0.8        | 48.1±0.7         | 70.2±0.6         |
-| Simple CNAPS                    | 63.0±1.0     | 80.0±0.8        | 48.1±0.7         | 70.2±0.6         |
+| Transductive CNAPS              | 65.9±1.0     | 81.8±0.7        | 54.6±0.8         | 72.5±0.6         |
 | ---                             | ---          | ---             | ---              | ---              |
 | Simple CNAPS + FETI             | 71.4±1.0     | 86.0±0.6        | 57.1±0.7         | 78.5±0.5         |
-| Simple CNAPS + FETI             | 71.4±1.0     | 86.0±0.6        | 57.1±0.7         | 78.5±0.5         |
+| Transductive CNAPS + FETI       | 73.8±1.0     | 87.7±0.6        | 65.1±0.8         | 80.6±0.5         |
 
-**Models trained on all datasets (with ```--shuffle_dataset True```)**
+## Citation
+We hope you have found this repository helpful! If you use our code base, please cite our papers:
 
-| Dataset                         | Simple CNAPS | CNAPS         | 
-| ---                             | ---          | ---           |
-| In-Domain Datasets              | ---          | ---           |
-| ILSVRC                          | 56.5±1.1     | 50.8±1.1      | 
-| Omniglot                        | 91.9±0.6     | 91.7±0.5      | 
-| Aircraft                        | 83.8±0.6     | 83.7±0.6      | 
-| Birds                           | 76.1±0.9     | 73.6±0.9      | 
-| Textures                        | 70.0±0.8     | 59.5±0.7      | 
-| Quick Draw                      | 78.3±0.7     | 74.7±0.8      | 
-| Fungi                           | 49.1±1.2     | 50.2±1.1      | 
-| VGG Flower                      | 91.3±0.6     | 88.9±0.5      | 
-| Out-of-Domain Datasets          | ---          | ---           |
-| Traffic Signs                   | 59.2±1.0     | 56.5±1.1      |
-| MSCOCO                          | 42.4±1.1     | 39.4±1.0      |
-| MNIST                           | 94.3±0.4     | N/A           |
-| CIFAR10                         | 72.0±0.8     | N/A           |
-| CIFAR100                        | 60.9±1.1     | N/A           |
-| ---                             | ---          | ---           |
-| In-Domain Average Accuracy      | 74.6±0.8     | 71.6±0.8      |
-| Out-of-Domain Average Accuracy  | 65.8±0.9     | 47.9±1.1*     |
-| Overall Average Accuracy        | 71.2±0.8     | 66.9±0.9*     |
-
-```*``` CNAPS averages don't include performances on MNIST, CIFAR10 and CIFAR100
-
-## Mini/Tiered ImageNet Installations & Usage
-In order to re-create these experiments, you need to:
-
-1. First clone https://github.com/yaoyao-liu/mini-imagenet-tools, the mini-imagenet tools package used for generating tasks, and https://github.com/yaoyao-liu/tiered-imagenet-tools, the respective tiered-imagenet tools package under ```/src```. Although theoretically this should sufficient, there may be errors arising from hard coded file paths (3 to 4 of which was present at the time of creating our set-up, although they seem to have been resolved since) which you can easily fix.
-
-2. Once the setup is complete, use ```run_simple_cnaps_mt.py``` to run mini\tiered-imagenet experiments:
-
-For Simple CNAPS:
-    
-    ```cd src; python run_simple_cnaps_mt.py --dataset <choose either mini or tiered> --feature_adaptation film --checkpoint_dir <address of the directory where you want to save the checkpoints> --pretrained_resnet_path <choose resnet pretrained checkpoint>```
-    
-For Simple AR-CNAPS:
-    
-    ```cd src; python run_simple_cnaps_mt.py --dataset <choose either mini or tiered> --feature_adaptation film+ar --checkpoint_dir <address of the directory where you want to save the checkpoints> --pretrained_resnet_path <choose resnet pretrained checkpoint>```
-    
-**Note that as we emphasized this in the main paper, CNAPS-based models including Simple CNAPS have a natural advantage on these benchmarks due to the pre-trianing of the feature extractor on the Meta-Dataset split of ImageNet. We alliviate this issue by re-training the ResNet feature extractor on the specific training splits of mini-ImageNet and tiered-ImageNet. These checkpoints have been provided under ```model-checkpoints/pretrained_resnets``` and are respectively ```pretrained_resnet_mini_imagenet.pt.tar``` and ```
-pretrained_resnet_tiered_imagenet.pt.tar```. We additionally consider the case that additional non-test-set overlapping ImageNet classes are used to train our ResNet feature extractor in ```pretrained_resnet_mini_tiered_with_extra_classes.pt.tar```. We refer to this latter setup as "Feature Exctractor Trained (partially) on ImageNet", abbreviated as "FETI". Please visit the experimental section of http://128.84.4.27/abs/2006.12245 for additional details on this setup.
-
-**Updated results (with the new ResNet18 checkpoints - see explanation above) on mini-ImageNet**
-
-| Setup                           | 5-way 1-shot | 5-way 5-shot    | 10-way 1-shot    | 10-way 5-shot    |
-| ---                             | ---          | ---             | ---       | ---       |
-| Simple CNAPS                    | 53.2±0.9     | 70.8±0.7        | 37.1±0.5  | 56.7±0.5  |
-| Simple CNAPS + FETI             | 77.4±0.8     | 90.3±0.4        | 63.5±0.6  | 83.1±0.4  |
-
-**Updated results (with the new ResNet18 checkpoints - see explanation above) on tiered-ImageNet**
-
-| Setup                           | 5-way 1-shot | 5-way 5-shot    | 10-way 1-shot    | 10-way 5-shot    |
-| ---                             | ---          | ---             | ---       | ---       |
-| Simple CNAPS                    | 63.0±1.0     | 80.0±0.8        | 48.1±0.7  | 70.2±0.6  |
-| Simple CNAPS + FETI             | 71.4±1.0     | 86.0±0.6        | 57.1±0.7  | 78.5±0.5  |
-
-## Method Clarification - Use of 1/2 Coefficient on the Mahalanobis Distance
-
-The 1/2 coefficient used in Equation 2, namely the one-half squared Mahalanobis distance, provides correpondence to Gaussian Mixutre Models, but is widely believed to be of little significance as it corresponds to scaling vectors by a factor of 2. This scaling is naturally possible through a feature extractor and it was believed to not have a significant impact on the performance of the model. However, as we observed post-publication, it has a very small but nevertheless noticable impact as the use of the identity matrix in our regularization scheme breaks the equivalency previously believed. To this end, we provided a comparison in performance with respect to the presence of the 1/2 coefficient, and have updated the code to NOT use the coefficient as better performance is observed there. As shown, although overall performance changes are statistically insignificant, on certain specific datasets such as ILSVRC and VGG Flower, the difference is noticable. Note that this effect is primarily significant during training and at test time, either configuration achieves the same performance when used with the same checkpoints. The results shown below were generated with ```--shuffle_dataset False```.
-
-| Dataset                         | Simple CNAPS (without 1/2) | Simple CNAPS (with 1/2)  |
-| ---                             | ---                        | ---                      |
-| In-Domain Datasets              | ---                        | ---                      |
-| ILSVRC                          | 58.6±1.1                   | 55.3±1.1                 |
-| Omniglot                        | 91.7±0.6                   | 90.7±0.6                 |
-| Aircraft                        | 82.4±0.7                   | 82.0±0.7                 |
-| Birds                           | 74.9±0.8                   | 74.2±0.9                 |
-| Textures                        | 67.8±0.8                   | 66.0±0.8                 |
-| Quick Draw                      | 77.7±0.7                   | 76.3±0.8                 |
-| Fungi                           | 46.9±1.0                   | 47.3±1.0                 |
-| VGG Flower                      | 90.7±0.5                   | 87.9±0.6                 |
-| Out-of-Domain Datasets          | ---                        | ---                      |
-| Traffic Signs                   | 73.5±0.7                   | 74.7±0.7                 |
-| MSCOCO                          | 46.2±1.1                   | 47.4±1.1                 |
-| MNIST                           | 93.9±0.4                   | 94.3±0.4                 |
-| CIFAR10                         | 74.3±0.7                   | 72.0±0.8                 |
-| CIFAR100                        | 60.5±1.0                   | 58.7±1.0                 |
-| ---                             | ---                        | ---                      |
-| In-Domain Average Accuracy      | 73.8±0.8                   | 72.5±0.8                 |
-| Out-of-Domain Average Accuracy  | 69.7±0.8                   | 69.4±0.8                 |
-| Overall Average Accuracy        | 72.2±0.8                   | 71.3±0.8                 |
-
-## Citing this repository/paper
 ```
-@InProceedings{Bateni_2020_CVPR,
+@InProceedings{Bateni2020_SimpleCNAPS,
 author = {Bateni, Peyman and Goyal, Raghav and Masrani, Vaden and Wood, Frank and Sigal, Leonid},
 title = {Improved Few-Shot Visual Classification},
 booktitle = {Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)},
 month = {June},
 year = {2020}
+}
+
+@article{Bateni2020_TransductiveCNAPS,
+  author    = {Peyman Bateni and Jarred Barber and Jan{-}Willem van de Meent and Frank Wood},
+  title     = {Improving Few-Shot Visual Classification with Unlabelled Examples},
+  journal   = {CoRR},
+  volume    = {abs/2006.12245},
+  year      = {2020},
+  url       = {https://arxiv.org/abs/2006.12245},
+  eprinttype = {arXiv},
+  eprint    = {2006.12245},
+  timestamp = {Tue, 23 Jun 2020 17:57:22 +0200},
+  biburl    = {https://dblp.org/rec/journals/corr/abs-2006-12245.bib},
+  bibsource = {dblp computer science bibliography, https://dblp.org}
+}
+
+@article{Bateni2021_TPAMI_SI_FewShot,
+  author    = {Peyman Bateni and Jarred Barber and Raghav Goyal and Vaden Masrani and Jan{-}Willem van de Meent and Leonid Sigal and Frank Wood},
+  title     = {Towards Better Few-Shot Object Recognition},
+  year      = {2021}
 }
 ```
