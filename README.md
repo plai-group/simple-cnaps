@@ -14,7 +14,7 @@ This repository contains source codes for the following papers:
   
   @ IEEE TPAMI Special Issue on Learning with Fewer Labels in Computer Vision, 2022 (in submission)
 
-The code base has been authored by Peyman Bateni, Jarred Barber, Raghav Goyal, Vaden Masrani, Dr. Jan-Willemn van de Meent, Dr. Leonid Sigal and Dr. Frank Wood. The source code builds upon the original code base for CNAPS authored by John Bronskill, Jonathan Gordon, James Reqeima, Sebastian Nowozin, and Richard E. Turner. We would like to thank them for their help, support and early sharing of their work. To see the original CNAPS repository, visit https://github.com/cambridge-mlg/cnaps.
+The code base has been authored by Peyman Bateni, Jarred Barber, Raghav Goyal, Vaden Masrani, Dr. Jan-Willemn van de Meent, Dr. Leonid Sigal and Dr. Frank Wood. The source codes build on the original code base for CNAPS authored by Dr. John Bronskill, Jonathan Gordon, James Reqeima, Sebastian Nowozin, and Dr. Richard E. Turner. We would like to thank them for their help, support and early sharing of their work. To see the original CNAPS repository, visit https://github.com/cambridge-mlg/cnaps.
 
 ## Simple CNAPS
 
@@ -58,15 +58,6 @@ Global Tiered-ImageNet Rank (Transductive CNAPS):
 ## Active and Continual Learning
 
 We additionally evaluate both methods within the paradigms of "out of the box" active and continual learning. This settings was first proposed by Requeima et al., and studies how well few-shot classifier, trained for few-shot learning, can be deployed for active and continual learning without any problem-specific finetuning or training. For additional details on our active and continual learning experiments and algorithms, please refer to our latest paper: [Towards Better Few-Shot Object Recognition](). For code and instructions to reproduce the experiments reported, please refer to the [active-learning](https://github.com/plai-group/simple-cnaps/active-learning) and [continual-learning](https://github.com/plai-group/simple-cnaps/continual-learning) folders.
-
-## Dependencies
-You can use the ```requirements.txt``` file included to install dependencies for both Simple CNAPS, Transductive CNAPS, relevant active/continual learning experiments and the accompanying source codes for Meta-Dataset, mini-ImageNet and tiered-ImageNet. To install all dependencies, run ```pip install -r requirements.txt```. In general, this code base requires Python 3.5 or greater, PyTorch 1.0 or greater and TensorFlow 2.0 or greater.
-
-## GPU Requirements
-The GPU requirements for Simple CNAPS are:
-* 1 GPU with 16GB or more memory for training Simple and Transductive CNAPS - you can also perform distributed training of Simple and Transductive CNAPS across 2 GPUs with 8GB or more in dedicated memory
-* GPUs with 16GB or more memory for training Simple AR-CNAPS (and Transductive AR-CNAPS should you be interested)
-We recommend the same settings for testing.
 
 ## Meta-Dataset Results
 
