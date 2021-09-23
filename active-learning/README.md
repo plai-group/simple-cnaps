@@ -15,7 +15,18 @@ We run active learning experiments on the OMNIGLOT and CIFAR10 benchmarks. For C
 
 ## Running Active Learning Experiments
 
-TODO
+All relavant test scripts used to produce the results reported in the paper have been added under the [test-scripts](github.com/plai-group/simple-cnaps/active-learning/test-scripts/) folder in this directory. In general, to run an active learning experiment, please run the following command.
+
+```
+python3 run_active_learning.py \
+        --data_path <path to datasets, omniglot and cifar10> \
+        --feature_adaptation <set to "film" but if your model uses a different strategy for adaptation, specify here> \
+        --checkpoint_dir <path to checkpoint directory> \
+        --model <specify model, one of simple_cnaps or transductive_cnaps> \
+        --dataset <specify dataset name, one of omniglot or cifar 10> 
+        --test_model_path <path to trained model checkpoint> \
+        --active_learning_method <active learning method to employ>
+```
 
 ## Citation
 We hope you have found our code base helpful! If you use this repository, please cite our papers:
