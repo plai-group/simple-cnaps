@@ -13,7 +13,7 @@ We conducted our experiments on two Tesla P100 GPUs with about 10GB of memory ea
 ## Dataset Installation
 We run active learning experiments on the MNIST, CIFAR100 and CIFAR10 benchmarks. For all datasets, the code to download the dataset has already been incorporated and the dataset will be setup during the first run. If you encounter any dataset issues, please make sure that the data paths defined within the load functions for each dataset in ```run_continual_learning.py``` are constructed. Depending on your setup, python is some times unable to create all directories needed.
 
-## Running Active Learning Experiments
+## Running Continual Learning Experiments
 
 TODO
 
