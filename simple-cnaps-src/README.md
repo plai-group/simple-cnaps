@@ -42,7 +42,7 @@ Our installation process is the same as CNAPS:
     * Extract the CIFAR10 dataset: ```tar -zxvf cifar-10-python.tar.gz```
     * Download the CIFAR100 dataset: ```wget https://www.cs.toronto.edu/~kriz/cifar-100-python.tar.gz```
     * Extract the CIFAR10 dataset: ```tar -zxvf cifar-100-python.tar.gz```
-    * Change to the ```simple-cnaps/simple-cnaps-src/src``` directory in the repository.
+    * Change to the ```simple-cnaps/simple-cnaps-src/``` directory in the repository.
     * Run: ```python prepare_extra_datasets.py```
 
 ## Meta-Dataset Usage
