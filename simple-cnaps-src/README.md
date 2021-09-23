@@ -61,9 +61,11 @@ To train and test Simple CNAPs on Meta-Dataset:
 2. We have provided two checkpoints, correspondingly named "best_simple_cnaps.pt" and "best_simple_ar_cnaps.pt" under the [model-checkpoints](https://github.com/plai-group/simple-cnaps/model-checkpoints/meta-dataset-checkpoints/) folder. These checkpoints contain the trained parameters for the two models that produced the results for Simple CNAPS and Simple AR-CNAPS (as referenced in the paper). To re-run evaluation, you can use the following commands to test the provided Simple CNAPS and Simple AR-CNAPS models:
 
     For Simple CNAPS:
+    
     ```python run_simple_cnaps.py --data_path $RECORDS --feature_adaptation film --mode test -m ../model-checkpoints/meta-dataset-checkpoints/best_simple_cnaps.pt```
     
     For Simple AR-CNAPS:
+    
     ```python run_simple_cnaps.py --data_path $RECORDS --feature_adaptation film+ar --mode test -m ../model-checkpoints/meta-dataset-checkpoints/best_simple_ar_cnaps.pt```
 
     Note that while the parameters are the same, since for testing, we sample a set of tasks from each dataset, minor variations may be seen in terms of reproducing results. That said, the discrepancies should be within the confidence intervals provided and should still match the referenced results considering statistical significance.
