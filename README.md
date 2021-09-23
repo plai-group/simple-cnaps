@@ -2,8 +2,8 @@
 
 This repository contains relevant sources code for the following papers:
 - [Improved Few-Shot Visual Classification](https://openaccess.thecvf.com/content_CVPR_2020/html/Bateni_Improved_Few-Shot_Visual_Classification_CVPR_2020_paper.html) @ IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR), 2020
-- [Enhancing Few-Shot Image Classification with Unlabelled Examples](https://arxiv.org/abs/2006.12245), IEEE/CVF Winter Conference on Applications of Computer Vision (WACV), 2022 (in submission)
-- Towards Better Few-Shot Object Recognition, TPAMI Special Issue on Learning with Fewer Labels in Computer Vision, 2022 (in submission)
+- [Enhancing Few-Shot Image Classification with Unlabelled Examples](https://arxiv.org/abs/2006.12245) @ IEEE/CVF Winter Conference on Applications of Computer Vision (WACV), 2022 (in submission)
+- Towards Better Few-Shot Object Recognition @ IEEE TPAMI Special Issue on Learning with Fewer Labels in Computer Vision, 2022 (in submission)
 
 The code base has been authored by Peyman Bateni, Jarred Barber, Raghav Goyal, Vaden Masrani, Dr. Jan-Willemn van de Meent, Dr. Leonid Sigal and Dr. Frank Wood. The source code builds upon the original code base for CNAPS authored by John Bronskill, Jonathan Gordon, James Reqeima, Sebastian Nowozin, and Richard E. Turner. We would like to thank them for their help, support and early sharing of their work. To see the original CNAPS repository, visit https://github.com/cambridge-mlg/cnaps.
 
