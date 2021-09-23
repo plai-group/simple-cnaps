@@ -67,6 +67,8 @@ To train and test Transductive CNAPs on Meta-Dataset:
     ```python run_transductive_cnaps.py --data_path $RECORDS --feature_adaptation film --checkpoint_dir <address of the directory where you want to save the checkpoints> --min_cluster_refinement_steps_train 0 --max_cluster_refinement_steps_train 0 --min_cluster_refinement_steps_test 2 --max_cluster_refinement_steps_test 4```
     
     Note that we use a different min/max steps during training time (specifically both set to zero - no cluster refinements). To re-create results reported in the paper, please use ```--shuffle_dataset False```. To re-recreate our Meta-Dataset Leaderboard results (see leaderboard at https://github.com/google-research/meta-dataset#training-on-all-datasets), enable dataset shuffling via ```--shuffle_dataset True```. The ```--shuffle_dataset``` flag is set to ```True``` by default. Depending on your environment, training may take anywhere from 1-5 days. For reference, training on 2 T4 GPUs with 64G of memory and 8 dedicated GPUs took 2 days and 8 hours for Transductive CNAPS.
+    
+    If you are interested in training Transductive CNAPS with the Auto-Regressive Feature Extractor Adaptation Procedure (Transductive AR-CNAPS), you should theoretically be able to use the code provided, although we didn't run any experiments or test this variation directly.
 
 ## Meta-Dataset Results
 
