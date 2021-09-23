@@ -14,7 +14,7 @@ This repository contains source codes for the following papers:
   
   @ IEEE TPAMI Special Issue on Learning with Fewer Labels in Computer Vision, 2022 (in submission)
 
-The code base has been authored by Peyman Bateni, Jarred Barber, Raghav Goyal, Vaden Masrani, Dr. Jan-Willemn van de Meent, Dr. Leonid Sigal and Dr. Frank Wood. The source codes build on the original code base for CNAPS authored by Dr. John Bronskill, Jonathan Gordon, James Reqeima, Sebastian Nowozin, and Dr. Richard E. Turner. We would like to thank them for their help, support and early sharing of their work. To see the original CNAPS repository, visit https://github.com/cambridge-mlg/cnaps.
+The code base has been authored by Peyman Bateni, Jarred Barber, Raghav Goyal, Vaden Masrani, Dr. Jan-Willemn van de Meent, Dr. Leonid Sigal and Dr. Frank Wood. The source codes build on the original code base for CNAPS authored by Dr. John Bronskill, Jonathan Gordon, James Reqeima, Dr. Sebastian Nowozin, and Dr. Richard E. Turner. We would like to thank them for their help, support and early sharing of their work. To see the original CNAPS repository, visit https://github.com/cambridge-mlg/cnaps.
 
 ## Simple CNAPS
 
