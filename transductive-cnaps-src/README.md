@@ -46,7 +46,7 @@ Our installation process is the same as CNAPS:
     * Run: ```python prepare_extra_datasets.py```
 
 ## Meta-Dataset Usage
-To train and test Transductive CNAPs on Meta-Dataset:
+All test scripts used to produce results reported within the paper have been provided in the [test-scripts](https://github.com/plai-group/simple-cnaps/transductive-cnaps-src/test-scripts/) directory. To train and test Transductive CNAPs on Meta-Dataset:
 
 1. First run the following three commands:
     
