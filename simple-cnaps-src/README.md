@@ -62,7 +62,7 @@ To train and test Simple CNAPs on Meta-Dataset:
     ```python run_simple_cnaps.py --data_path $RECORDS --feature_adaptation film --mode test -m ../model-checkpoints/meta-dataset-checkpoints/best_simple_cnaps.pt```
     
     For Simple AR-CNAPS:
-    ```python src/run_simple_cnaps.py --data_path $RECORDS --feature_adaptation film+ar --mode test -m ../model-checkpoints/meta-dataset-checkpoints/best_simple_ar_cnaps.pt```
+    ```python run_simple_cnaps.py --data_path $RECORDS --feature_adaptation film+ar --mode test -m ../model-checkpoints/meta-dataset-checkpoints/best_simple_ar_cnaps.pt```
 
     Note that while the parameters are the same, since for testing, we sample a set of tasks from each dataset, minor variations may be seen in terms of reproducing results. That said, the discrepancies should be within the confidence intervals provided and should still match the referenced results considering statistical significance.
     
