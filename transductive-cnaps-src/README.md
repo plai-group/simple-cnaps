@@ -51,7 +51,9 @@ To train and test Transductive CNAPs on Meta-Dataset:
 1. First run the following three commands:
     
     ```ulimit -n 50000```
+    
     ```export META_DATASET_ROOT=<root directory of the cloned or downloaded Meta-Dataset repository>```
+    
     ```export RECORDS=<root directory of where you have produced meta-dataset records>```
     
     Note that you may need to run the above commands every time you open a new command shell.
