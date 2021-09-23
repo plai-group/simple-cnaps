@@ -2,37 +2,30 @@
 
 This directory contains the code for the paper, "Improved Few-Shot Visual Classification", which has been published at IEEE CVPR 2020. For a pdf copy of the paper, please visit IEEE CVF at https://openaccess.thecvf.com/content_CVPR_2020/html/Bateni_Improved_Few-Shot_Visual_Classification_CVPR_2020_paper.html or our ArXiv copy at https://arxiv.org/pdf/1912.03432.pdf.
 
-Global Meta-Dataset rank: https://github.com/google-research/meta-dataset#training-on-all-datasets
+Global Meta-Dataset Rank (Simple CNAPS): https://github.com/google-research/meta-dataset#training-on-all-datasets
 
-Global mini-ImageNet rank:
+Global mini-ImageNet Rank (Simple CNAPS):
 
 [![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/improved-few-shot-visual-classification/few-shot-image-classification-on-mini-2)](https://paperswithcode.com/sota/few-shot-image-classification-on-mini-2?p=improved-few-shot-visual-classification)
 [![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/improved-few-shot-visual-classification/few-shot-image-classification-on-mini-3)](https://paperswithcode.com/sota/few-shot-image-classification-on-mini-3?p=improved-few-shot-visual-classification)
 [![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/improved-few-shot-visual-classification/few-shot-image-classification-on-mini-12)](https://paperswithcode.com/sota/few-shot-image-classification-on-mini-12?p=improved-few-shot-visual-classification)
 [![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/improved-few-shot-visual-classification/few-shot-image-classification-on-mini-13)](https://paperswithcode.com/sota/few-shot-image-classification-on-mini-13?p=improved-few-shot-visual-classification)
 
-Global tiered-ImageNet rank:
+Global tiered-ImageNet Rank (Simple CNAPS):
 
 [![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/improved-few-shot-visual-classification/few-shot-image-classification-on-tiered)](https://paperswithcode.com/sota/few-shot-image-classification-on-tiered?p=improved-few-shot-visual-classification)
 [![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/improved-few-shot-visual-classification/few-shot-image-classification-on-tiered-1)](https://paperswithcode.com/sota/few-shot-image-classification-on-tiered-1?p=improved-few-shot-visual-classification)
 [![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/improved-few-shot-visual-classification/few-shot-image-classification-on-tiered-2)](https://paperswithcode.com/sota/few-shot-image-classification-on-tiered-2?p=improved-few-shot-visual-classification)
 [![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/improved-few-shot-visual-classification/few-shot-image-classification-on-tiered-3)](https://paperswithcode.com/sota/few-shot-image-classification-on-tiered-3?p=improved-few-shot-visual-classification)
 
-This code base builds upon the original source code for CNAPS authored by John Bronskill, Jonathan Gordon, James Reqeima, Sebastian Nowozin, and Richard E. Turner.  We would like to thank them for their help, support and early sharing of the source code. To see the original CNAPS repository, visit https://github.com/cambridge-mlg/cnaps.
-
 ## Dependencies
-This code requires the following.
-* Python 3.5 or greater
-* PyTorch 1.0 or greater
-* TensorFlow 2.0 or greater
-
-You can use the ```requirements.txt``` file included to install dependencies for both Simple CNAPS and the accompanying source codes for Meta-Dataset, mini-ImageNet and tiered-ImageNet. To install dependencies, run ```pip install -r requirements.txt```.
+You can use the ```requirements.txt``` file included to install dependencies for both Simple CNAPS, Transductive CNAPS, relevant active/continual learning experiments and the accompanying source codes for Meta-Dataset, mini-ImageNet and tiered-ImageNet. To install all dependencies, run ```pip install -r requirements.txt```. In general, this code base requires Python 3.5 or greater, PyTorch 1.0 or greater and TensorFlow 2.0 or greater.
 
 ## GPU Requirements
 The GPU requirements for Simple CNAPS are:
-* 2 GPUs with 16GB or more memory for training Simple AR-CNAPS
-* 1 GPU with 16GB or more memory for training Simple CNAPS - you can also perform distributed training of Simple CNAPS across 2 GPUs with 8GB or more memory
-We recommend the same settings for testing.
+* 1 GPU with 16GB or more memory for training Simple CNAPS - you can alternatively perform distributed training of Simple CNAPS across 2 GPUs with 8GB or more in dedicated memory (we primarily used this setting in our experiments)
+* GPUs with 16GB or more memory for training Simple AR-CNAPS
+We recommend the same settings for testing, although as gradient propagation is no more required, you may be able to test on GPUs with much less memory.
 
 ## Meta-Dataset Installation
 Our installation process is the same as CNAPS:
@@ -49,7 +42,7 @@ Our installation process is the same as CNAPS:
     * Extract the CIFAR10 dataset: ```tar -zxvf cifar-10-python.tar.gz```
     * Download the CIFAR100 dataset: ```wget https://www.cs.toronto.edu/~kriz/cifar-100-python.tar.gz```
     * Extract the CIFAR10 dataset: ```tar -zxvf cifar-100-python.tar.gz```
-    * Change to the ```simple-cnaps/src``` directory in the repository.
+    * Change to the ```simple-cnaps/simple-cnaps-src/src``` directory in the repository.
     * Run: ```python prepare_extra_datasets.py```
 
 ## Meta-Dataset Usage
@@ -63,7 +56,7 @@ To train and test Simple CNAPs on Meta-Dataset:
     
     Note that you may need to run the above commands every time you open a new command shell.
     
-2. We have provided two checkpoints, correspondingly named "best_simple_cnaps.pt" and "best_simple_ar_cnaps.pt". These checkpoints contain the trained parameters for the two models that produced the results for Simple CNAPS and Simple AR-CNAPS (as referenced in the paper). To re-run evaluation, you can use the following commands to test the provided Simple CNAPS and Simple AR-CNAPS models:
+2. We have provided two checkpoints, correspondingly named "best_simple_cnaps.pt" and "best_simple_ar_cnaps.pt" under the [model-checkpoints](https://github.com/plai-group/simple-cnaps/model-checkpoints/meta-dataset-checkpoints/) folder. These checkpoints contain the trained parameters for the two models that produced the results for Simple CNAPS and Simple AR-CNAPS (as referenced in the paper). To re-run evaluation, you can use the following commands to test the provided Simple CNAPS and Simple AR-CNAPS models:
 
     For Simple CNAPS:
     ```cd src; python run_simple_cnaps.py --data_path $RECORDS --feature_adaptation film --mode test -m ../best_simple_cnaps.pt```
@@ -71,7 +64,7 @@ To train and test Simple CNAPs on Meta-Dataset:
     For Simple AR-CNAPS:
     ```cd src; python src/run_simple_cnaps.py --data_path $RECORDS --feature_adaptation film+ar --mode test -m ../best_simple_ar_cnaps.pt```
 
-    Note that while the parameters are the same, since for testing, we sample a set of tasks from each dataset, variations may be seen in terms of reproducing results. That said, the discrepancies should be within the confidence intervals provided and should still match the referenced results considering statistical significance.
+    Note that while the parameters are the same, since for testing, we sample a set of tasks from each dataset, minor variations may be seen in terms of reproducing results. That said, the discrepancies should be within the confidence intervals provided and should still match the referenced results considering statistical significance.
     
 3. If you would like to train/test the models from scratch, use the following two commands:
 
@@ -138,22 +131,24 @@ To train and test Simple CNAPs on Meta-Dataset:
 ```*``` CNAPS averages don't include performances on MNIST, CIFAR10 and CIFAR100
 
 ## Mini/Tiered ImageNet Installations & Usage
+
 In order to re-create these experiments, you need to:
 
-1. First clone https://github.com/yaoyao-liu/mini-imagenet-tools, the mini-imagenet tools package used for generating tasks, and https://github.com/yaoyao-liu/tiered-imagenet-tools, the respective tiered-imagenet tools package under ```/src```. Although theoretically this should sufficient, there may be errors arising from hard coded file paths (3 to 4 of which was present at the time of creating our set-up, although they seem to have been resolved since) which you can easily fix.
+1. First clone https://github.com/yaoyao-liu/mini-imagenet-tools, the mini-imagenet tools package used for generating tasks, and https://github.com/yaoyao-liu/tiered-imagenet-tools, the respective tiered-imagenet tools package under ```/src```. Although theoretically this should sufficient, there may be errors arising from hard coded file paths (3 to 4 of which was present at the time of creating our set-up, although they seem to have been resolved since) which you can easily fix. Alternatively, we have included copies of both of these repositories within this director (see [miniimagenettools](github.com/plai-group/simple-cnaps/simple-cnaps-src/miniimagenettools/) and [tieredimagenettools](github.com/plai-group/simple-cnaps/simple-cnaps-src/tieredimagenettools/) which you can use to set up the respective datasets (should either repository be updated in the meantime).
 
 2. Once the setup is complete, use ```run_simple_cnaps_mt.py``` to run mini\tiered-imagenet experiments:
 
 For Simple CNAPS:
     
-    ```cd src; python run_simple_cnaps_mt.py --dataset <choose either mini or tiered> --feature_adaptation film --checkpoint_dir <address of the directory where you want to save the checkpoints> --pretrained_resnet_path <choose resnet pretrained checkpoint>```
+    ```cd src; python run_simple_cnaps_mt.py --dataset <choose either mini or tiered> --feature_adaptation film --checkpoint_dir <address of the directory where you want to save the checkpoints> --pretrained_resnet_path <choose resnet pretrained checkpoint> --shot <task shot> --way <task way>```
     
 For Simple AR-CNAPS:
     
-    ```cd src; python run_simple_cnaps_mt.py --dataset <choose either mini or tiered> --feature_adaptation film+ar --checkpoint_dir <address of the directory where you want to save the checkpoints> --pretrained_resnet_path <choose resnet pretrained checkpoint>```
+    ```cd src; python run_simple_cnaps_mt.py --dataset <choose either mini or tiered> --feature_adaptation film+ar --checkpoint_dir <address of the directory where you want to save the checkpoints> --pretrained_resnet_path <choose resnet pretrained checkpoint> --shot <task shot> --way <task way>```
     
-**Note that as we emphasized this in the main paper, CNAPS-based models including Simple CNAPS have a natural advantage on these benchmarks due to the pre-trianing of the feature extractor on the Meta-Dataset split of ImageNet. We alliviate this issue by re-training the ResNet feature extractor on the specific training splits of mini-ImageNet and tiered-ImageNet. These checkpoints have been provided under ```model-checkpoints/pretrained_resnets``` and are respectively ```pretrained_resnet_mini_imagenet.pt.tar``` and ```
-pretrained_resnet_tiered_imagenet.pt.tar```. We additionally consider the case that additional non-test-set overlapping ImageNet classes are used to train our ResNet feature extractor in ```pretrained_resnet_mini_tiered_with_extra_classes.pt.tar```. We refer to this latter setup as "Feature Exctractor Trained (partially) on ImageNet", abbreviated as "FETI". Please visit the experimental section of http://128.84.4.27/abs/2006.12245 for additional details on this setup.
+**Note that as we emphasized this in the main paper, CNAPS-based models including Simple CNAPS have a natural advantage on these benchmarks due to the pre-trianing of the feature extractor on the Meta-Dataset split of ImageNet. We alliviate this issue by re-training the ResNet feature extractor on the specific training splits of mini-ImageNet and tiered-ImageNet. These checkpoints have been provided under [model-checkpoints/pretrained_resnets](github.com/plai-group/simple-cnaps/model-checkpoints/pretrained_resnets/) and are respectively ```pretrained_resnet_mini_imagenet.pt.tar``` and ```
+pretrained_resnet_tiered_imagenet.pt.tar```. We additionally consider the case where additional non-test-set overlapping ImageNet classes are used to train our ResNet feature extractor in ```pretrained_resnet_mini_tiered_with_extra_classes.pt.tar```. We refer to this latter setup as "Feature Exctractor Trained (partially) on ImageNet", abbreviated as "FETI". Please visit the experimental section of [Enhancing Few-Shot Image Classification with Unlabelled Examples](https://arxiv.org/abs/2006.12245) 
+ for additional details on this setup.
 
 **Updated results (with the new ResNet18 checkpoints - see explanation above) on mini-ImageNet**
 
@@ -195,13 +190,35 @@ The 1/2 coefficient used in Equation 2, namely the one-half squared Mahalanobis 
 | Out-of-Domain Average Accuracy  | 69.7±0.8                   | 69.4±0.8                 |
 | Overall Average Accuracy        | 72.2±0.8                   | 71.3±0.8                 |
 
-## Citing this repository/paper
+## Citation
+We hope you have found this code base helpful! If you use this repository, please cite our papers:
+
 ```
-@InProceedings{Bateni_2020_CVPR,
+@InProceedings{Bateni2020_SimpleCNAPS,
 author = {Bateni, Peyman and Goyal, Raghav and Masrani, Vaden and Wood, Frank and Sigal, Leonid},
 title = {Improved Few-Shot Visual Classification},
 booktitle = {Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)},
 month = {June},
 year = {2020}
+}
+
+@article{Bateni2020_TransductiveCNAPS,
+  author    = {Peyman Bateni and Jarred Barber and Jan{-}Willem van de Meent and Frank Wood},
+  title     = {Improving Few-Shot Visual Classification with Unlabelled Examples},
+  journal   = {CoRR},
+  volume    = {abs/2006.12245},
+  year      = {2020},
+  url       = {https://arxiv.org/abs/2006.12245},
+  eprinttype = {arXiv},
+  eprint    = {2006.12245},
+  timestamp = {Tue, 23 Jun 2020 17:57:22 +0200},
+  biburl    = {https://dblp.org/rec/journals/corr/abs-2006-12245.bib},
+  bibsource = {dblp computer science bibliography, https://dblp.org}
+}
+
+@article{Bateni2021_TPAMI_SI_FewShot,
+  author    = {Peyman Bateni and Jarred Barber and Raghav Goyal and Vaden Masrani and Jan{-}Willem van de Meent and Leonid Sigal and Frank Wood},
+  title     = {Towards Better Few-Shot Object Recognition},
+  year      = {2021}
 }
 ```
