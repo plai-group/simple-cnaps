@@ -206,21 +206,15 @@ month = {June},
 year = {2020}
 }
 
-@article{Bateni2020_TransductiveCNAPS,
-  author    = {Peyman Bateni and Jarred Barber and Jan{-}Willem van de Meent and Frank Wood},
-  title     = {Improving Few-Shot Visual Classification with Unlabelled Examples},
-  journal   = {CoRR},
-  volume    = {abs/2006.12245},
-  year      = {2020},
-  url       = {https://arxiv.org/abs/2006.12245},
-  eprinttype = {arXiv},
-  eprint    = {2006.12245},
-  timestamp = {Tue, 23 Jun 2020 17:57:22 +0200},
-  biburl    = {https://dblp.org/rec/journals/corr/abs-2006-12245.bib},
-  bibsource = {dblp computer science bibliography, https://dblp.org}
+@InProceedings{Bateni2020_TransductiveCNAPS,
+    author    = {Peyman Bateni and Jarred Barber and Jan{-}Willem van de Meent and Frank Wood},
+    title     = {Enhancing Few-Shot Image Classification with Unlabelled Examples},
+    booktitle = {Proceedings of the IEEE/CVF Winter Conference on Applications of Computer Vision (WACV)},
+    month     = {January},
+    year      = {2022},
 }
 
-@article{Bateni2021_TPAMI_SI_FewShot,
+@article{Bateni2021_BetterFewShotObjectRecognition,
   author    = {Peyman Bateni and Jarred Barber and Raghav Goyal and Vaden Masrani and Jan{-}Willem van de Meent and Leonid Sigal and Frank Wood},
   title     = {Towards Better Few-Shot Object Recognition},
   year      = {2021}
