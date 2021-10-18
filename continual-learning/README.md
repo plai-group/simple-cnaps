@@ -19,12 +19,12 @@ All relavant test scripts used to produce the results reported in the paper have
 
 ```
 python -u run_continual_learning.py 
---dataset <mnist, cifar10 or cifar100> 
---test_shot <number of test examples per class> 
---test_epochs <number of continual runs> 
---model <choose model, simple_cnaps or transductive_cnaps> 
---shot <number of labelled examples per class per task> 
---head_type <"multi" uses a separate head for each task, "single" uses one single head for all tasks>
+    --dataset <mnist, cifar10 or cifar100> 
+    --test_shot <number of test examples per class> 
+    --test_epochs <number of continual runs> 
+    --model <choose model, simple_cnaps or transductive_cnaps> 
+    --shot <number of labelled examples per class per task> 
+    --head_type <"multi" uses a separate head for each task, "single" uses one single head for all tasks>
 ```
 
 ## Citation
