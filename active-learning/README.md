@@ -15,7 +15,7 @@ We run active learning experiments on the OMNIGLOT and CIFAR10 benchmarks. For C
 
 ## Running Active Learning Experiments
 
-All relavant test scripts used to produce the results reported in the paper have been added under the [test-scripts](github.com/plai-group/simple-cnaps/active-learning/test-scripts/) folder in this directory. In general, to run an active learning experiment, please run the following command.
+All relavant test scripts used to produce the results reported in the paper have been added under the [test-scripts](https://github.com/plai-group/simple-cnaps/tree/master/active-learning/test-scripts/) folder in this directory. In general, to run an active learning experiment, please run the following command.
 
 ```
 python3 run_active_learning.py \
