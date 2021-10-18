@@ -15,7 +15,7 @@ We run active learning experiments on the MNIST, CIFAR100 and CIFAR10 benchmarks
 
 ## Running Continual Learning Experiments
 
-All relavant test scripts used to produce the results reported in the paper have been added under the [test-scripts](https://github.com/plai-group/simple-cnaps/continual-learning/test-scripts) folder in this directory. In general, to run a continual learning experiment, you can use the following command.
+All relavant test scripts used to produce the results reported in the paper have been added under the [test-scripts](https://github.com/plai-group/simple-cnaps/tree/master/continual-learning/test-scripts) folder in this directory. In general, to run a continual learning experiment, you can use the following command.
 
 ```
 python -u run_continual_learning.py 
