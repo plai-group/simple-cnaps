@@ -24,7 +24,8 @@ You can use the ```requirements.txt``` file included to install dependencies for
 ## GPU Requirements
 The GPU requirements for Simple CNAPS are:
 * 1 GPU with 16GB or more memory for training Simple CNAPS - you can alternatively perform distributed training of Simple CNAPS across 2 GPUs with 8GB or more in dedicated memory (we primarily used this setting in our experiments)
-* GPUs with 16GB or more memory for training Simple AR-CNAPS
+* 2 GPUs with 16GB or more memory for training Simple AR-CNAPS
+
 We recommend the same settings for testing, although as gradient propagation is no more required, you may be able to test on GPUs with much less memory.
 
 ## Meta-Dataset Installation
