@@ -47,7 +47,7 @@ Our installation process is the same as CNAPS:
     * Run: ```python prepare_extra_datasets.py```
 
 ## Meta-Dataset Usage
-All test scripts used to produce results reported within the paper have been provided in the [test-scripts](https://github.com/plai-group/simple-cnaps/transductive-cnaps-src/test-scripts/) directory. To train and test Transductive CNAPs on Meta-Dataset:
+All test scripts used to produce results reported within the paper have been provided in the [test-scripts](https://github.com/plai-group/simple-cnaps/tree/master/transductive-cnaps-src/test-scripts/) directory. To train and test Transductive CNAPs on Meta-Dataset:
 
 1. First run the following three commands:
     
@@ -59,7 +59,7 @@ All test scripts used to produce results reported within the paper have been pro
     
     Note that you may need to run the above commands every time you open a new command shell.
     
-2. We have provided our Transductive CNAPS model checkpoint, correspondingly named "best_transductive_cnaps.pt", under the [model-checkpoints](https://github.com/plai-group/simple-cnaps/model-checkpoints/meta-dataset-checkpoints/) folder. This checkpoint contains the trained parameters for the model that produced the SoTA results for Transductive CNAPS (as referenced in the paper). To re-run evaluation, you can use the following command to test the provided Transductive CNAPS checkpoint:
+2. We have provided our Transductive CNAPS model checkpoint, correspondingly named "best_transductive_cnaps.pt", under the [model-checkpoints](https://github.com/plai-group/simple-cnaps/tree/master/model-checkpoints/meta-dataset-checkpoints/) folder. This checkpoint contains the trained parameters for the model that produced the SoTA results for Transductive CNAPS (as referenced in the paper). To re-run evaluation, you can use the following command to test the provided Transductive CNAPS checkpoint:
 
     ```python run_transductive_cnaps.py --data_path $RECORDS --feature_adaptation film --mode test -m ../model-checkpoints/meta-dataset-checkpoints/best_transductive_cnaps.pt --min_cluster_refinement_steps_test 2 --max_cluster_refinement_steps_test 4```
 
@@ -102,7 +102,7 @@ All test scripts used to produce results reported within the paper have been pro
 ## Mini/Tiered ImageNet Installations & Usage
 In order to re-create these experiments, you need to:
 
-1. First clone https://github.com/yaoyao-liu/mini-imagenet-tools, the mini-imagenet tools package used for generating tasks, and https://github.com/yaoyao-liu/tiered-imagenet-tools, the respective tiered-imagenet tools package under ```/transductive-cnaps-src```. Although theoretically this should sufficient, there may be errors arising from hard coded file paths (3 to 4 of which was present at the time of creating our set-up, although they seem to have been resolved since) which you can easily fix. Alternatively, we have included tested copies of both of these repositories within this director (see [miniimagenettools](github.com/plai-group/simple-cnaps/transductive-cnaps-src/miniimagenettools/) and [tieredimagenettools](github.com/plai-group/simple-cnaps/transductive-cnaps-src/tieredimagenettools/) which you can use to set up the respective datasets, should either repository be updated in the meantime).
+1. First clone https://github.com/yaoyao-liu/mini-imagenet-tools, the mini-imagenet tools package used for generating tasks, and https://github.com/yaoyao-liu/tiered-imagenet-tools, the respective tiered-imagenet tools package under ```/transductive-cnaps-src```. Although theoretically this should sufficient, there may be errors arising from hard coded file paths (3 to 4 of which was present at the time of creating our set-up, although they seem to have been resolved since) which you can easily fix. Alternatively, we have included tested copies of both of these repositories within this director (see [miniimagenettools](https://github.com/plai-group/simple-cnaps/tree/master/transductive-cnaps-src/miniimagenettools/) and [tieredimagenettools](https://github.com/plai-group/simple-cnaps/tree/master/transductive-cnaps-src/tieredimagenettools/) which you can use to set up the respective datasets, should either repository be updated in the meantime).
 
 2. Once the setup is complete, use ```run_transductive_cnaps_mt.py``` to run mini\tiered-imagenet experiments:
     
