@@ -102,17 +102,11 @@ All test scripts used to produce results reported within the paper have been pro
 ## Mini/Tiered ImageNet Installations & Usage
 In order to re-create these experiments, you need to:
 
-1. First clone https://github.com/yaoyao-liu/mini-imagenet-tools, the mini-imagenet tools package used for generating tasks, and https://github.com/yaoyao-liu/tiered-imagenet-tools, the respective tiered-imagenet tools package under ```/transductive-cnaps-src```. Although theoretically this should sufficient, there may be errors arising from hard coded file paths (3 to 4 of which was present at the time of creating our set-up, although they seem to have been resolved since) which you can easily fix. Alternatively, we have included tested copies of both of these repositories within this director (see [miniimagenettools](github.com/plai-group/simple-cnaps/simple-cnaps-src/miniimagenettools/) and [tieredimagenettools](github.com/plai-group/simple-cnaps/simple-cnaps-src/tieredimagenettools/) which you can use to set up the respective datasets, should either repository be updated in the meantime).
+1. First clone https://github.com/yaoyao-liu/mini-imagenet-tools, the mini-imagenet tools package used for generating tasks, and https://github.com/yaoyao-liu/tiered-imagenet-tools, the respective tiered-imagenet tools package under ```/transductive-cnaps-src```. Although theoretically this should sufficient, there may be errors arising from hard coded file paths (3 to 4 of which was present at the time of creating our set-up, although they seem to have been resolved since) which you can easily fix. Alternatively, we have included tested copies of both of these repositories within this director (see [miniimagenettools](github.com/plai-group/simple-cnaps/transductive-cnaps-src/miniimagenettools/) and [tieredimagenettools](github.com/plai-group/simple-cnaps/transductive-cnaps-src/tieredimagenettools/) which you can use to set up the respective datasets, should either repository be updated in the meantime).
 
-2. Once the setup is complete, use ```run_simple_cnaps_mt.py``` to run mini\tiered-imagenet experiments:
-
-For Simple CNAPS:
+2. Once the setup is complete, use ```run_transductive_cnaps_mt.py``` to run mini\tiered-imagenet experiments:
     
-    ```cd src; python run_simple_cnaps_mt.py --dataset <choose either mini or tiered> --feature_adaptation film --checkpoint_dir <address of the directory where you want to save the checkpoints> --pretrained_resnet_path <choose resnet pretrained checkpoint>```
-    
-For Simple AR-CNAPS:
-    
-    ```cd src; python run_simple_cnaps_mt.py --dataset <choose either mini or tiered> --feature_adaptation film+ar --checkpoint_dir <address of the directory where you want to save the checkpoints> --pretrained_resnet_path <choose resnet pretrained checkpoint>```
+    ```cd src; python run_transductive_cnaps_mt.py --dataset <choose either mini or tiered> --feature_adaptation film --checkpoint_dir <address of the directory where you want to save the checkpoints> --pretrained_resnet_path <choose resnet pretrained checkpoint>```
     
 **Note that as we emphasized this in Simple CNAPS paper, Meta-Dataset pretrained CNAPS-based models including Simple CNAPS have a natural advantage on these benchmarks due to the pre-trianing of the feature extractor on the Meta-Dataset split of ImageNet. We alliviate this issue by re-training the ResNet feature extractor on the specific training splits of mini-ImageNet and tiered-ImageNet. These checkpoints have been provided under ```model-checkpoints/pretrained_resnets``` and are respectively ```pretrained_resnet_mini_imagenet.pt.tar``` and ```
 pretrained_resnet_tiered_imagenet.pt.tar```. We additionally consider the case that additional non-test-set overlapping ImageNet classes are used to train our ResNet feature extractor in ```pretrained_resnet_mini_tiered_with_extra_classes.pt.tar```. We refer to this latter setup as "Feature Exctractor Trained (partially) on ImageNet", abbreviated as "FETI". Please visit the experimental section of our Transductive CNAPS paper for additional details on this setup.
