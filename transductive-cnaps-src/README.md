@@ -1,6 +1,6 @@
 # Enhancing Few-Shot Image Classification with Unlabelled Examples
 
-This directory contains the code for the paper, "Enhancing Few-Shot Image Classification with Unlabelled Examples", which is currently under review been at IEEE WACV 2022. For a pdf copy of the paper, please visit our ArXiv copy at https://arxiv.org/pdf/2006.12245.pdf.
+This directory contains the code for the paper, "Enhancing Few-Shot Image Classification with Unlabelled Examples", which has been published at IEEE WACV 2022. For a pdf copy of the paper, please visit our ArXiv copy at https://arxiv.org/pdf/2006.12245.pdf.
 
 Global Meta-Dataset Rank (Transductive CNAPS): https://github.com/google-research/meta-dataset#training-on-all-datasets
 
