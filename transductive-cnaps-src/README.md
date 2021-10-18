@@ -59,7 +59,7 @@ All test scripts used to produce results reported within the paper have been pro
     
     Note that you may need to run the above commands every time you open a new command shell.
     
-2. We have provided our Transductive CNAPS model checkpoint, correspondingly named "best_transductive_cnaps.pt", under the [model-checkpoints](https://github.com/plai-group/simple-cnaps/model-checkpoints/meta-dataset-checkpoints/) folder. This checkpoint contains the trained parameters for the model that produced the SoTA results for Transductive CNAPS (as referenced in the paper). To re-run evaluation, you can use the following command to test the provided Transductive CNAPS:
+2. We have provided our Transductive CNAPS model checkpoint, correspondingly named "best_transductive_cnaps.pt", under the [model-checkpoints](https://github.com/plai-group/simple-cnaps/model-checkpoints/meta-dataset-checkpoints/) folder. This checkpoint contains the trained parameters for the model that produced the SoTA results for Transductive CNAPS (as referenced in the paper). To re-run evaluation, you can use the following command to test the provided Transductive CNAPS checkpoint:
 
     ```python run_transductive_cnaps.py --data_path $RECORDS --feature_adaptation film --mode test -m ../model-checkpoints/meta-dataset-checkpoints/best_transductive_cnaps.pt --min_cluster_refinement_steps_test 2 --max_cluster_refinement_steps_test 4```
 
