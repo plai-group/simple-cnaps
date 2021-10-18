@@ -75,8 +75,8 @@ All test scripts used to produce results reported within the paper have been pro
 
 ## Meta-Dataset Results
 
-*Testing
 | Dataset                         | Transductive CNAPS | Transductive CNAPS |
+| ---                             | ---                | ---                |
 | ```--shuffle_dataset```         | False              | True               |
 | ---                             | ---                | ---                |
 | In-Domain Datasets              | ---                | ---                |
