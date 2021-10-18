@@ -199,11 +199,11 @@ We hope you have found this code base helpful! If you use this repository, pleas
 
 ```
 @InProceedings{Bateni2020_SimpleCNAPS,
-author = {Bateni, Peyman and Goyal, Raghav and Masrani, Vaden and Wood, Frank and Sigal, Leonid},
-title = {Improved Few-Shot Visual Classification},
-booktitle = {Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)},
-month = {June},
-year = {2020}
+    author = {Bateni, Peyman and Goyal, Raghav and Masrani, Vaden and Wood, Frank and Sigal, Leonid},
+    title = {Improved Few-Shot Visual Classification},
+    booktitle = {Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)},
+    month = {June},
+    year = {2020}
 }
 
 @InProceedings{Bateni2020_TransductiveCNAPS,
@@ -215,8 +215,8 @@ year = {2020}
 }
 
 @article{Bateni2021_BetterFewShotObjectRecognition,
-  author    = {Peyman Bateni and Jarred Barber and Raghav Goyal and Vaden Masrani and Jan{-}Willem van de Meent and Leonid Sigal and Frank Wood},
-  title     = {Towards Better Few-Shot Object Recognition},
-  year      = {2021}
+    author    = {Peyman Bateni and Jarred Barber and Raghav Goyal and Vaden Masrani and Jan{-}Willem van de Meent and Leonid Sigal and Frank Wood},
+    title     = {Towards Better Few-Shot Object Recognition},
+    year      = {2021}
 }
 ```
