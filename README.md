@@ -124,7 +124,7 @@ year = {2020}
     year      = {2022},
 }
 
-@article{Bateni2021_TPAMI_SI_FewShot,
+@article{Bateni2021_BetterFewShotObjectRecognition,
   author    = {Peyman Bateni and Jarred Barber and Raghav Goyal and Vaden Masrani and Jan{-}Willem van de Meent and Leonid Sigal and Frank Wood},
   title     = {Towards Better Few-Shot Object Recognition},
   year      = {2021}
