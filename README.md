@@ -8,7 +8,7 @@ This repository contains source codes for the following papers:
   
 - [Enhancing Few-Shot Image Classification with Unlabelled Examples](https://arxiv.org/abs/2006.12245) 
 
-  @ IEEE/CVF Winter Conference on Applications of Computer Vision (WACV), 2022 (in submission)
+  @ IEEE/CVF Winter Conference on Applications of Computer Vision (WACV), 2022
   
 - [Towards Better Few-Shot Object Recognition]() 
   
