@@ -57,7 +57,7 @@ Global Tiered-ImageNet Rank (Transductive CNAPS):
 
 ## Active and Continual Learning
 
-We additionally evaluate both methods within the paradigms of "out of the box" active and continual learning. This settings was first proposed by Requeima et al., and studies how well few-shot classifier, trained for few-shot learning, can be deployed for active and continual learning without any problem-specific finetuning or training. For additional details on our active and continual learning experiments and algorithms, please refer to our latest paper: [Towards Better Few-Shot Object Recognition](). For code and instructions to reproduce the experiments reported, please refer to the [active-learning](https://github.com/plai-group/simple-cnaps/active-learning) and [continual-learning](https://github.com/plai-group/simple-cnaps/continual-learning) folders.
+We additionally evaluate both methods within the paradigms of "out of the box" active and continual learning. These settings were first proposed by Requeima et al., and studies how well few-shot classifiers, trained for few-shot learning, can be deployed for active and continual learning without any problem-specific finetuning or training. For additional details on our active and continual learning experiments and algorithms, please refer to our latest paper: [Towards Better Few-Shot Object Recognition](). For code and instructions to reproduce the experiments reported, please refer to the [active-learning](https://github.com/plai-group/simple-cnaps/active-learning) and [continual-learning](https://github.com/plai-group/simple-cnaps/continual-learning) folders.
 
 ## Meta-Dataset Results
 
