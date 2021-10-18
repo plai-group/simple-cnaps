@@ -143,11 +143,11 @@ In order to re-create these experiments, you need to:
 
 2. Once the setup is complete, use ```run_simple_cnaps_mt.py``` to run mini\tiered-imagenet experiments:
 
-For Simple CNAPS:
+   For Simple CNAPS:
     
     ```cd src; python run_simple_cnaps_mt.py --dataset <choose either mini or tiered> --feature_adaptation film --checkpoint_dir <address of the directory where you want to save the checkpoints> --pretrained_resnet_path <choose resnet pretrained checkpoint> --shot <task shot> --way <task way>```
     
-For Simple AR-CNAPS:
+   For Simple AR-CNAPS:
     
     ```cd src; python run_simple_cnaps_mt.py --dataset <choose either mini or tiered> --feature_adaptation film+ar --checkpoint_dir <address of the directory where you want to save the checkpoints> --pretrained_resnet_path <choose resnet pretrained checkpoint> --shot <task shot> --way <task way>```
     
