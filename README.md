@@ -10,7 +10,7 @@ This repository contains source codes for the following papers:
 
   @ IEEE/CVF Winter Conference on Applications of Computer Vision (WACV), 2022
   
-- [Towards Better Few-Shot Object Recognition]() 
+- [Beyond Simple Meta-Learning: Multi-Purpose Models for Multi-Domain, Active and Continual Few-Shot Learning](https://arxiv.org/abs/2201.05151) 
   
   @ IEEE TPAMI Special Issue on Learning with Fewer Labels in Computer Vision, 2022 (in submission)
 
@@ -57,7 +57,7 @@ Global Tiered-ImageNet Rank (Transductive CNAPS):
 
 ## Active and Continual Learning
 
-We additionally evaluate both methods within the paradigms of "out of the box" active and continual learning. These settings were first proposed by Requeima et al., and studies how well few-shot classifiers, trained for few-shot learning, can be deployed for active and continual learning without any problem-specific finetuning or training. For additional details on our active and continual learning experiments and algorithms, please refer to our latest paper: [Towards Better Few-Shot Object Recognition](). For code and instructions to reproduce the experiments reported, please refer to the [active-learning](https://github.com/plai-group/simple-cnaps/tree/master/active-learning) and [continual-learning](https://github.com/plai-group/simple-cnaps/tree/master/continual-learning) folders.
+We additionally evaluate both methods within the paradigms of "out of the box" active and continual learning. These settings were first proposed by Requeima et al., and studies how well few-shot classifiers, trained for few-shot learning, can be deployed for active and continual learning without any problem-specific finetuning or training. For additional details on our active and continual learning experiments and algorithms, please refer to our latest paper: [Beyond Simple Meta-Learning: Multi-Purpose Models for Multi-Domain, Active and Continual Few-Shot Learning](https://arxiv.org/abs/2201.05151). For code and instructions to reproduce the experiments reported, please refer to the [active-learning](https://github.com/plai-group/simple-cnaps/tree/master/active-learning) and [continual-learning](https://github.com/plai-group/simple-cnaps/tree/master/continual-learning) folders.
 
 ## Meta-Dataset Results
 
@@ -104,6 +104,8 @@ We additionally evaluate both methods within the paradigms of "out of the box" a
 | Simple CNAPS + FETI             | 71.4±1.0     | 86.0±0.6        | 57.1±0.7         | 78.5±0.5         |
 | Transductive CNAPS + FETI       | 73.8±1.0     | 87.7±0.6        | 65.1±0.8         | 80.6±0.5         |
 
+**If you would like to ask any questions or reach out regarding any of the papers, please email me directly at peyman.bateni@hotmail.com (my cs.ubc.ca email may have expired by the time you are emailing as I have graduated!).
+
 ## Citation
 We hope you have found our code base helpful! If you use this repository, please cite our papers:
 
@@ -116,17 +118,21 @@ We hope you have found our code base helpful! If you use this repository, please
     year = {2020}
 }
 
-@InProceedings{Bateni2020_TransductiveCNAPS,
-    author    = {Peyman Bateni and Jarred Barber and Jan{-}Willem van de Meent and Frank Wood},
-    title     = {Enhancing Few-Shot Image Classification with Unlabelled Examples},
+@InProceedings{Bateni2022_TransductiveCNAPS,
+    author    = {Bateni, Peyman and Barber, Jarred and van de Meent, Jan-Willem and Wood, Frank},
+    title     = {Enhancing Few-Shot Image Classification With Unlabelled Examples},
     booktitle = {Proceedings of the IEEE/CVF Winter Conference on Applications of Computer Vision (WACV)},
     month     = {January},
     year      = {2022},
+    pages     = {2796-2805}
 }
 
-@article{Bateni2021_BetterFewShotObjectRecognition,
-    author    = {Peyman Bateni and Jarred Barber and Raghav Goyal and Vaden Masrani and Jan{-}Willem van de Meent and Leonid Sigal and Frank Wood},
-    title     = {Towards Better Few-Shot Object Recognition},
-    year      = {2021}
+@misc{Bateni2022_BeyondSimpleMetaLearning,
+    title={Beyond Simple Meta-Learning: Multi-Purpose Models for Multi-Domain, Active and Continual Few-Shot Learning}, 
+    author={Peyman Bateni and Jarred Barber and Raghav Goyal and Vaden Masrani and Jan-Willem van de Meent and Leonid Sigal and Frank Wood},
+    year={2022},
+    eprint={2201.05151},
+    archivePrefix={arXiv},
+    primaryClass={cs.CV}
 }
 ```
