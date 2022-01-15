@@ -104,8 +104,6 @@ We additionally evaluate both methods within the paradigms of "out of the box" a
 | Simple CNAPS + FETI             | 71.4±1.0     | 86.0±0.6        | 57.1±0.7         | 78.5±0.5         |
 | Transductive CNAPS + FETI       | 73.8±1.0     | 87.7±0.6        | 65.1±0.8         | 80.6±0.5         |
 
-**If you would like to ask any questions or reach out regarding any of the papers, please email me directly at peyman.bateni@hotmail.com (my cs.ubc.ca email may have expired by the time you are emailing as I have graduated!).
-
 ## Citation
 We hope you have found our code base helpful! If you use this repository, please cite our papers:
 
@@ -136,3 +134,5 @@ We hope you have found our code base helpful! If you use this repository, please
     primaryClass={cs.CV}
 }
 ```
+
+**If you would like to ask any questions or reach out regarding any of the papers, please email me directly at peyman.bateni@hotmail.com (my cs.ubc.ca email may have expired by the time you are emailing as I have graduated!).
