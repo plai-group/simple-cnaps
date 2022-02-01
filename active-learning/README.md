@@ -58,5 +58,14 @@ We hope you have found our code base helpful! If you use this repository, please
     primaryClass={cs.CV}
 }
 
-**If you would like to ask any questions or reach out regarding any of the papers, please email me directly at peyman.bateni@hotmail.com (my cs.ubc.ca email may have expired by the time you are emailing as I have graduated!).
+@phdthesis{Bateni2021_Thesis, 
+    series      = {Electronic Theses and Dissertations (ETDs) 2008+}, 
+    title       = {On label-eï¬€icient computer visionâ€¯: building fast and effective few-shot image classifiers}, 
+    url         = {https://open.library.ubc.ca/collections/ubctheses/24/items/1.0402554}, 
+    DOI         = {http://dx.doi.org/10.14288/1.0402554}, 
+    school      = {University of British Columbia}, 
+    author      = {Bateni, Peyman}, 
+    year        = {2021}, 
+    collection  = {Electronic Theses and Dissertations (ETDs) 2008+}
+}
 ```
