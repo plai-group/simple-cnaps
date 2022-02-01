@@ -1,6 +1,6 @@
 # Improved Few-Shot Visual Classification
 
-This repository contains source codes for the following papers:
+This repository contains source codes for the following papers and thesis:
 
 - [Improved Few-Shot Visual Classification](https://openaccess.thecvf.com/content_CVPR_2020/html/Bateni_Improved_Few-Shot_Visual_Classification_CVPR_2020_paper.html) 
 
